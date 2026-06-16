@@ -475,17 +475,13 @@ Full interactive API documentation at `http://localhost:8000/docs` (Swagger UI).
 | **You** | Backend (FastAPI, ML, DB, scraping, Docker), everything non-frontend | Medium |
 | **Person 1** | Frontend — all React components, pages, maps, graphs, dashboards | Good |
 
-### 7-Day Execution Plan (2-Person Team)
+### 3-Day Execution Plan (2-Person Team)
 
 | Day | You (Backend + DB + ML + Infra) | Person 1 (Frontend) |
 |---|---|---|
-| **D1** | FastAPI scaffold, JWT auth, user models, PostgreSQL + PostGIS schema (**crime, criminal tables**), DB connection | Vite + React scaffold, login/register page, app layout + sidebar, routing |
-| **D2** | **Criminal/link tables + cyber incident tables + IP/domain tables**, Crime + Criminal CRUD APIs, S3 file upload, **run crime seed scripts** | Crime list + detail pages, criminal table with search, Leaflet map with sample pins |
-| **D3** | **Scrape config table + sources**, scraping engine + Celery tasks, `/cyber/*` endpoints (IP, domain, incidents), **IP enrichment service (WHOIS/DNS)** | File upload UI, scrape config page, manual entry form, Cyber incident list page |
-| **D4** | ML: RF risk scoring, DBSCAN hotspot, Isolation Forest (crime), **ML features via SQL views + seed predictions** | Hotspot heatmap overlay, anomaly alert panel, risk score badges on criminal cards, IP Tracker UI |
-| **D5** | Cyber ML (IP reputation, phishing detection, flow anomaly), **flow records table + PCAP metadata**, network graph APIs | Network flow graph (Cytoscape.js), Domain Analyzer UI, Phishing Case view, trend charts |
-| **D6** | Dashboard stats API (unified + cyber), admin permissions, **row-level security**, forensics evidence chain API | Unified dashboard KPI cards, admin panel, Forensics Tracker, loading/error/empty states |
-| **D7** | **Migration scripts**, Docker Compose + Floci, full smoke test, README updates, **seed all data + verify** | UI polish, responsive fixes, demo walkthrough recording |
+| **D1 — Design + Architecture + Frontend** | Design full architecture (diagrams), finalize project structure, set up Docker Compose skeleton, define API contract shapes, set up PostgreSQL + PostGIS schema (all tables), create seed scripts | Vite + React + Tailwind scaffold, ALL pages (Login, Dashboard, Crime, Cyber, Network, Analysis, Data, Admin), ALL components (crime list/detail/map, cyber IP/domain/flow, network graphs, analysis panels, data upload), routing, auth context, layout shell |
+| **D2 — Backend + Verify + Deploy + Setup** | FastAPI scaffold + JWT auth, ALL CRUD APIs (crime, criminal, cyber incident, IP, domain), scraping engine + Celery, ALL ML models (RF risk, DBSCAN, Isolation Forest, IP reputation, phishing detect, flow anomaly), network graph APIs, dashboard stats, admin endpoints, S3 file upload, Docker Compose + Floci integration | Integrate frontend with live backend APIs, verify every page loads real data, fix TypeScript errors, ensure maps/graphs render with API data, build loading/error/empty states |
+| **D3 — Test + Demo** | Full smoke test all endpoints (curl/httpx), run seed scripts + verify DB, fix backend bugs, Docker compose up —d test from clean state, README/split.md final updates | UI polish (consistent spacing/colors/fonts), responsive fixes (mobile + tablet), demo walkthrough recording, final bug fixes |
 
 ---
 
