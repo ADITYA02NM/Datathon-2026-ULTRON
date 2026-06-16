@@ -2,13 +2,14 @@
 
 **Datathon 2026** — *Nationwide Innovation Challenge by the Karnataka State Police*
 
-> Transforming fragmented crime and cybercrime data into actionable intelligence through AI-powered analytics, geospatial mapping, criminal network visualization, and cyber forensics tracking.
+> **AI-Driven.** Transforming fragmented crime and cybercrime data into actionable intelligence through 7 ML models — predicting risk, detecting hotspots, uncovering anomalies, and tracing cyber attacks — all unified in a single platform.
 
 ---
 
 ## 📋 Table of Contents
 
 - [Problem Statement](#-problem-statement)
+- [AI-Driven at Its Core](#-ai-driven-at-its-core)
 - [Features](#-features)
 - [Tech Stack](#-tech-stack)
 - [Architecture Overview](#-architecture-overview)
@@ -31,7 +32,25 @@ Current law enforcement systems rely on **siloed data and manual reporting**, li
 - **CyberCrime Track** — Trace IP addresses, analyze website/domain trails, map network flows, and correlate digital evidence across cyber incidents
 - Unify both tracks into a single command dashboard for holistic threat awareness
 
-**ULTRON** solves this by providing **two specialized data pipelines** — one for traditional crime intelligence and one for cyber forensic analysis — unified under a single AI-powered platform.
+**ULTRON** solves this by providing **two specialized data pipelines** — one for traditional crime intelligence and one for cyber forensic analysis — unified under a single AI-powered platform with **7 ML models working continuously at its core**.
+
+---
+
+## 🤖 AI-Driven at Its Core
+
+ULTRON is not just a dashboard — it's an **AI-native platform** where machine learning runs on every layer:
+
+| ML Model | Algorithm | What It Does | Why It's AI |
+|---|---|---|---|
+| **🏆 Crime Hotspot Detection** | DBSCAN clustering | Automatically finds crime clusters on the map — no human draws those boundaries | Algorithm detects spatial patterns invisible to the naked eye |
+| **⚠️ Criminal Risk Scoring** | Random Forest | Predicts re-offending risk (0-100) from age, priors, crime types, associates | Learns which factor combinations predict risk — not just a weighted sum |
+| **🚨 Crime Anomaly Detection** | Isolation Forest | Spikes alerts when a district's crime count breaks its normal pattern | Adapts threshold per district — quiet areas trigger earlier than busy ones |
+| **🔗 Criminal Link Prediction** | Jaccard Similarity + Rules | Finds hidden connections between criminals by shared attributes | Links that would take days of manual investigation appear in seconds |
+| **🌐 IP Reputation Scoring** | Random Forest | Each IP gets a reputation score based on past incidents and WHOIS/DNS data | Same IP appearing in multiple cases auto-escalates |
+| **🎣 Phishing Domain Detection** | ML Classifier + Heuristics | Catches zero-day phishing domains before any report | Flags domains by behavior patterns (age, registrar, SSL, DNS) |
+| **📡 Network Flow Anomaly** | Isolation Forest + Stats | Distinguishes normal traffic from C2 beacons or data exfiltration | Learns normal traffic shape per network — flags deviations |
+
+All models run on **Celery workers** in the background, update automatically on schedule, and can be **retrained with one click** when new data arrives. Results flow into the API and appear on the dashboard in real time.
 
 ---
 
@@ -167,7 +186,7 @@ Everything above plus user management, role assignment, and system configuration
         └────────────┬───────────────────┘
                      ▼
            FastAPI → JSON → React
-         Unified Dashboard + Drill-down
+         Unified Dashboard + Drill-down (AI-enriched everywhere)
 ```
 
 ---
@@ -453,21 +472,20 @@ Full interactive API documentation at `http://localhost:8000/docs` (Swagger UI).
 
 | Member | Focus | Level |
 |---|---|---|
-| **Person 1 (You)** | Backend API, ML models, system integration | Medium |
-| **Person 2** | Database design, data ingestion, web scraping | Okokish |
-| **Person 3** | Frontend (all UI components) | Good |
+| **You** | Backend (FastAPI, ML, DB, scraping, Docker), everything non-frontend | Medium |
+| **Person 1** | Frontend — all React components, pages, maps, graphs, dashboards | Good |
 
-### 7-Day Execution Plan
+### 7-Day Execution Plan (2-Person Team)
 
-| Day | Person 1 | Person 2 | Person 3 |
-|---|---|---|---|
-| **D1** | FastAPI scaffold, JWT auth, DB connection, user models | PostgreSQL + PostGIS setup, schema (crime, cyber), import real opencity data | Vite + React scaffold, login/register, routing, layout shell |
-| **D2** | Crime CRUD + Criminal CRUD APIs, S3 file upload | Criminal/link + cyber incident tables, run seed scripts | Crime list/detail pages, criminal table, Leaflet map |
-| **D3** | Scraping engine + Celery tasks, /cyber endpoints (IP, domain, incidents) | Scrape config, IP enrichment service (WHOIS/DNS), domain tables | File upload UI, scrape config page, manual entry form, Cyber list page |
-| **D4** | ML: RF risk, DBSCAN hotspot, Isolation Forest (crime) | ML features via SQL views, seed predictions, IP enrichment data | Hotspot heatmap, anomaly alerts, risk score badges, IP Tracker UI |
-| **D5** | Cyber ML (IP reputation, phishing detect, flow anomaly), network graph APIs | Flow records table, PCAP metadata schema, query optimization | Network flow graph (Cytoscape), Domain Analyzer, Phishing Case UI |
-| **D6** | Dashboard stats (unified), admin permissions, cyber forensics API | Row-level security, data export, forensics evidence chain | Dashboard, admin panel, Forensics Tracker, loading/error states |
-| **D7** | Docker Compose + Floci, smoke test, README final | Migration scripts, verify all seed data, test enrichments | UI polish, responsive fixes, demo walkthrough |
+| Day | You (Backend + DB + ML + Infra) | Person 1 (Frontend) |
+|---|---|---|
+| **D1** | FastAPI scaffold, JWT auth, user models, PostgreSQL + PostGIS schema (**crime, criminal tables**), DB connection | Vite + React scaffold, login/register page, app layout + sidebar, routing |
+| **D2** | **Criminal/link tables + cyber incident tables + IP/domain tables**, Crime + Criminal CRUD APIs, S3 file upload, **run crime seed scripts** | Crime list + detail pages, criminal table with search, Leaflet map with sample pins |
+| **D3** | **Scrape config table + sources**, scraping engine + Celery tasks, `/cyber/*` endpoints (IP, domain, incidents), **IP enrichment service (WHOIS/DNS)** | File upload UI, scrape config page, manual entry form, Cyber incident list page |
+| **D4** | ML: RF risk scoring, DBSCAN hotspot, Isolation Forest (crime), **ML features via SQL views + seed predictions** | Hotspot heatmap overlay, anomaly alert panel, risk score badges on criminal cards, IP Tracker UI |
+| **D5** | Cyber ML (IP reputation, phishing detection, flow anomaly), **flow records table + PCAP metadata**, network graph APIs | Network flow graph (Cytoscape.js), Domain Analyzer UI, Phishing Case view, trend charts |
+| **D6** | Dashboard stats API (unified + cyber), admin permissions, **row-level security**, forensics evidence chain API | Unified dashboard KPI cards, admin panel, Forensics Tracker, loading/error/empty states |
+| **D7** | **Migration scripts**, Docker Compose + Floci, full smoke test, README updates, **seed all data + verify** | UI polish, responsive fixes, demo walkthrough recording |
 
 ---
 
