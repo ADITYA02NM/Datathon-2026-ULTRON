@@ -2,22 +2,36 @@
 
 ## Project Overview
 
-**ULTRON (Unified Law Enforcement Threat Response & Optimization Nexus)** is an AI-powered crime analytics platform built for Datathon 2026, a nationwide innovation challenge by the Karnataka State Police, India.
+**ULTRON (Unified Law Enforcement Threat Response & Optimization Nexus)** is an **AI-Driven Crime Analytics Platform** purpose-built for the **Karnataka State Police — State Crime Records Bureau (SCRB)** for Datathon 2026.
 
-The platform transforms fragmented crime and cybercrime data into actionable intelligence through AI-powered analytics, geospatial mapping, criminal network visualization, and cyber forensics tracking.
+The platform transforms fragmented crime and cybercrime data into actionable intelligence through **6 core capabilities**:
+
+| # | Capability | Description |
+|---|---|---|
+| 1 | 🗺️ **Advanced Visualization** | District drill-down, spatiotemporal clusters, emerging trend alerts (red-zone pulsing) |
+| 2 | 🔗 **Criminological Network & Link Analysis** | Relationship mapping, repeat offender tracking by MO, association detection |
+| 3 | 📊 **Sociological & AI-Driven Predictive Dashboards** | Socio-economic correlation, predictive risk scoring, anomaly detection |
+| 4 | 📈 **Pattern & Trend Discovery** | Spatial/temporal hotspot identification — find where AND when crimes cluster |
+| 5 | 🧠 **Network & Behavioral Analysis** | Connections between suspects, behavioral patterns, organized crime structures |
+| 6 | 🤖 **AI/ML-Driven Intelligence** | 7 ML models for hidden correlations, real-time anomalies, predictive risk scores |
 
 ## Two Major Tracks
 
-### 1. 🚔 Crime Track (OSINT + Tracking + Records)
-Traditional crime intelligence powered by open-source data and structured records:
-- Crime heatmaps with DBSCAN-based hotspot overlays on Leaflet map of Karnataka
-- Command dashboard with KPI cards, live feed, 30-day trend charts, anomaly alerts
-- Criminal directory with risk scores, repeat offender badges, full history
-- Interactive Cytoscape.js criminal network graph (shared locations, associates, MO)
-- AI-powered Analysis Hub: hotspots, trends, anomalies, socio-economic correlations
-- District drilldown with granular stats and crime breakdown by type
-- OSINT web scraping of news websites for crime reports
-- Bulk CSV/JSON upload via drag-and-drop → Floci S3 → auto-parsed into DB
+### 1. 🚔 Crime Track (OSINT + Tracking + Records + Intelligence)
+
+AI-powered crime intelligence aligned with the 6 SCRB capabilities:
+
+- **Spatiotemporal Clusters** — DBSCAN finds crime clusters by location AND time (e.g., "chain snatching spikes in this area on weekends")
+- **District Drill-Down** — Click any district for granular stats, trend charts, hotspot clusters
+- **Emerging Trend Alerts (Red-Zone Pulsing)** — Isolation Forest detects spikes → district glows red and pulses on map
+- **Criminological Network Graph** — Cytoscape.js shows connections: shared locations, associates, matching MO
+- **MO Pattern Tracking** — Auto-match criminals across cases by Modus Operandi similarity
+- **Sociological & AI-Driven Dashboard** — KPI cards, predictive risk scores, anomaly feed, 30-day trends
+- **Strategic Intelligence Hub** — Senior officer command page: socio-economic correlation charts, predictive heatmap, top-5 trends
+- **Socio-Economic Map Overlays** — Toggle literacy, poverty, density layers on crime map
+- **Pattern & Trend Discovery** — Time-series analysis by type, district, time of day
+- **OSINT Scraping** — News website scraping → auto-extract location, suspects, case details
+- **Bulk Upload** — CSV/JSON drag-drop → Floci S3 → auto-parse into DB
 
 ### 2. 💻 CyberCrime Track (IPs + Websites + Network Flow + Forensics)
 Advanced cybercrime investigation with digital trail tracking:
@@ -124,10 +138,10 @@ Backend connects to:
 ## ML Models
 
 ### Crime
-- **Hotspot Detection:** DBSCAN (spatial clustering) — lat/lng input → cluster polygons with density
-- **Risk Scoring:** Random Forest — age, priors, crime types, associates → risk score 0-100 + tier
-- **Anomaly Detection:** Isolation Forest — crime frequency by district/time → anomaly score + severity
-- **Link Prediction:** Jaccard Similarity + Association Rules — shared attributes → link confidence 0-1
+- **Spatiotemporal Hotspot Detection:** DBSCAN — lat/lng + timestamp → cluster polygons with density + time pattern
+- **Predictive Risk Scoring:** Random Forest — age, priors, crime types, MO → risk score 0-100 + tier
+- **Emerging Trend Alert:** Isolation Forest — crime frequency by district/time → anomaly score + red-zone trigger
+- **MO & Link Prediction:** Jaccard Similarity + Association Rules — shared attributes + MO patterns → link confidence + match %
 
 ### CyberCrime
 - **IP Reputation:** Random Forest — geolocation, ASN, past incidents, WHOIS → reputation score 0-100
@@ -207,11 +221,11 @@ ULTRON/
 ## 3-Day Execution Plan
 
 ### Day 1 — Design + Architecture + Frontend
-- **You:** Architecture design, all DB models, Docker skeleton, seed scripts, API contract shapes
-- **Person 1 (Frontend):** ALL frontend pages + components built with mock data — login, dashboard, crime list/detail/map, criminal table, cyber IP/domain/flow, network graph, analysis panels, data upload, admin page
+- **You:** Architecture design, all DB models, Docker skeleton, seed scripts, API contract shapes (including new: spatiotemporal hotspots, red-zone alerts, MO matching, socio-economic overlays, Strategic Hub)
+- **Person 1 (Frontend):** ALL frontend pages + components — including new Strategic Intelligence Hub, red-zone pulsing map, MO tracking panel, socio-economic overlay controls, plus all crime/cyber/analysis/data/admin pages
 
 ### Day 2 — Backend + Verify + Deploy + Setup
-- **You:** FastAPI scaffold, JWT auth, all CRUD APIs, scraping engine + Celery, all ML models, network graph APIs, dashboard stats, Docker Compose + Floci
+- **You:** FastAPI scaffold, JWT auth, all CRUD APIs (crime + cyber + new spatiotemporal/red-zone/MO endpoints), scraping engine + Celery, all ML models, network graph APIs, dashboard stats, Strategic Hub APIs, Docker Compose + Floci
 - **Person 1 (Frontend):** Connect frontend to live backend APIs, verify every page, fix errors
 
 ### Day 3 — Test + Demo

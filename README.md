@@ -2,7 +2,7 @@
 
 **Datathon 2026** — *Nationwide Innovation Challenge by the Karnataka State Police*
 
-> **AI-Driven.** Transforming fragmented crime and cybercrime data into actionable intelligence through 7 ML models — predicting risk, detecting hotspots, uncovering anomalies, and tracing cyber attacks — all unified in a single platform.
+> **AI-Driven Crime Analytics Platform for the Karnataka State Police.** Transforming fragmented crime and cybercrime data into actionable intelligence through 7 ML models — spatiotemporal clustering, predictive risk scoring, anomaly detection, MO tracking, IP reputation analysis, phishing detection, and network flow analysis — all unified in a single command platform for the SCRB.
 
 ---
 
@@ -26,50 +26,60 @@
 
 ## 🎯 Problem Statement
 
-Current law enforcement systems rely on **siloed data and manual reporting**, limiting advanced analytics and proactive policing capabilities. Officers lack the tools to:
+The Karnataka State Police, through its **State Crime Records Bureau (SCRB)**, faces critical challenges in modern crime fighting: **siloed data, manual reporting, and the inability to predict threats before they escalate**. Officers and analysts lack the integrated, intelligent tools needed for proactive policing in both physical and digital domains.
 
-- **Crime Track** — Visualize crime patterns, detect hotspots, track repeat offenders, and monitor criminal networks using OSINT and records
-- **CyberCrime Track** — Trace IP addresses, analyze website/domain trails, map network flows, and correlate digital evidence across cyber incidents
-- Unify both tracks into a single command dashboard for holistic threat awareness
+**ULTRON** is an **AI-Driven Crime Analytics Platform** built for the SCRB that unifies six core capabilities:
 
-**ULTRON** solves this by providing **two specialized data pipelines** — one for traditional crime intelligence and one for cyber forensic analysis — unified under a single AI-powered platform with **7 ML models working continuously at its core**.
+| # | Capability | What It Means |
+|---|---|---|
+| 1 | 🗺️ **Advanced Visualization** | District drill-down with interactive maps, spatiotemporal crime clusters, and **emerging trend alerts** (red-zone pulsing when crime spikes) |
+| 2 | 🔗 **Criminological Network & Link Analysis** | Relationship mapping between criminals, **repeat offender tracking by MO (Modus Operandi)**, and automatic association detection |
+| 3 | 📊 **Sociological & AI-Driven Predictive Dashboards** | Socio-economic correlation overlays (literacy, poverty, density), **predictive risk scoring**, and anomaly detection |
+| 4 | 📈 **Pattern & Trend Discovery** | Spatial and temporal hotspot identification — find where and when crimes cluster |
+| 5 | 🧠 **Network & Behavioral Analysis** | Map connections between suspects, track behavioral patterns, detect organized crime structures |
+| 6 | 🤖 **AI/ML-Driven Intelligence** | 7 ML models discover **hidden correlations**, detect **real-time anomalies**, and generate **predictive risk scores** automatically |
+
+**ULTRON** delivers these through **two specialized data pipelines** — a **Crime Track** for traditional law enforcement intelligence and a **CyberCrime Track** for digital forensics — unified under a single command dashboard with **7 ML models running continuously at its core**.
 
 ---
 
 ## 🤖 AI-Driven at Its Core
 
-ULTRON is not just a dashboard — it's an **AI-native platform** where machine learning runs on every layer:
+ULTRON is purpose-built as an **AI-Driven Crime Analytics Platform** for the SCRB. Seven ML models work continuously across all six core capabilities — discovering hidden correlations, detecting real-time anomalies, and generating predictive intelligence.
 
-| ML Model | Algorithm | What It Does | Why It's AI |
+| ML Model | Algorithm | Supports Source Capability | What It Does |
 |---|---|---|---|
-| **🏆 Crime Hotspot Detection** | DBSCAN clustering | Automatically finds crime clusters on the map — no human draws those boundaries | Algorithm detects spatial patterns invisible to the naked eye |
-| **⚠️ Criminal Risk Scoring** | Random Forest | Predicts re-offending risk (0-100) from age, priors, crime types, associates | Learns which factor combinations predict risk — not just a weighted sum |
-| **🚨 Crime Anomaly Detection** | Isolation Forest | Spikes alerts when a district's crime count breaks its normal pattern | Adapts threshold per district — quiet areas trigger earlier than busy ones |
-| **🔗 Criminal Link Prediction** | Jaccard Similarity + Rules | Finds hidden connections between criminals by shared attributes | Links that would take days of manual investigation appear in seconds |
-| **🌐 IP Reputation Scoring** | Random Forest | Each IP gets a reputation score based on past incidents and WHOIS/DNS data | Same IP appearing in multiple cases auto-escalates |
-| **🎣 Phishing Domain Detection** | ML Classifier + Heuristics | Catches zero-day phishing domains before any report | Flags domains by behavior patterns (age, registrar, SSL, DNS) |
-| **📡 Network Flow Anomaly** | Isolation Forest + Stats | Distinguishes normal traffic from C2 beacons or data exfiltration | Learns normal traffic shape per network — flags deviations |
+| **🏆 Spatiotemporal Hotspot Detection** | DBSCAN clustering | #1 Advanced Visualization | Finds crime clusters by location AND time — automatically, no human boundary-drawing |
+| **⚠️ Predictive Risk Scoring** | Random Forest | #3 Predictive Dashboards | Learns which factors (age, priors, crime type, associates) predict re-offending risk (0-100) |
+| **🚨 Emerging Trend Alerts** | Isolation Forest | #1 Advanced Visualization | Spikes red-zone alerts when a district's crime breaks its normal pattern — adaptive thresholds per district |
+| **🔗 MO & Link Prediction** | Jaccard Similarity | #2 Network & Link Analysis | Auto-matches criminals by MO similarity — finds connections that would take days manually |
+| **🌐 IP Reputation Scoring** | Random Forest | #6 AI/ML Intelligence | Each IP scored by past incidents, WHOIS, DNS — repeated appearance auto-escalates |
+| **🎣 Phishing Domain Detection** | ML Classifier | #6 AI/ML Intelligence | Flags zero-day phishing domains by behavior (age, registrar, SSL, DNS patterns) |
+| **📡 Network Flow Anomaly** | Isolation Forest | #6 AI/ML Intelligence | Learns normal traffic per network — flags C2 beacons, data exfiltration, anomalies |
 
-All models run on **Celery workers** in the background, update automatically on schedule, and can be **retrained with one click** when new data arrives. Results flow into the API and appear on the dashboard in real time.
+All 7 models run on **Celery workers**, update automatically on schedule, and can be **retrained with one click**. Results → API → Dashboard in real time.
 
 ---
 
 ## ✨ Features
 
-### 🚔 Crime (OSINT + Tracking + Records)
+### 🚔 Crime (OSINT + Tracking + Records + Intelligence)
 
-Traditional crime intelligence powered by open-source data and structured records.
+AI-powered crime intelligence for the SCRB, built around 6 core capabilities defined by the Karnataka State Police.
 
-| Feature | What It Does |
-|---|---|
-| 🗺️ **Crime Heatmap** | Full-screen Leaflet map of Karnataka with DBSCAN-based hotspot overlays. Click any pin for crime details. |
-| 📊 **Command Dashboard** | KPI cards (total crimes, active cases, alerts), live crime feed, 30-day trend chart, anomaly alerts. |
-| 👥 **Criminal Directory** | Searchable table of known criminals with risk scores, repeat offender badges, and full history. |
-| 🕸️ **Criminal Network Graph** | Interactive Cytoscape.js visualization showing links between criminals and crimes (shared locations, associates, MO). |
-| 📈 **Crime Analysis Hub** | Four AI-powered panels: hotspots, trends, anomalies, and socio-economic correlations. |
-| 🔍 **District Drilldown** | Click any district on the map for granular stats and crime breakdown by type. |
-| 📰 **OSINT Scraping** | Scrape news websites for crime reports → auto-extract location, suspects, and case details. |
-| 📂 **Bulk Upload** | Drag-and-drop CSV/JSON upload → stored in Floci S3 → auto-parsed into database. |
+| Feature | What It Does | Source Capability |
+|---|---|---|
+| 🗺️ **Advanced Visualization — Spatiotemporal Clusters** | Full-screen Leaflet map of Karnataka with DBSCAN-based hotspot overlays. Clusters are **spatiotemporal** — they show crime patterns by location AND time (e.g., "chain snatching spikes in this area on weekends"). Click any pin or cluster for detail. | #1 Advanced Visualization |
+| 🔍 **District Drill-Down** | Click any district on the map → see its crime stats, trend charts, hotspot clusters, and breakdown by crime type. Compare across districts. | #1 Advanced Visualization |
+| 🚨 **Emerging Trend Alerts (Red-Zone Pulsing)** | When a district's crime rate spikes beyond its normal pattern, the district **glows red and pulses** on the map. Anomaly detection (Isolation Forest) powers this — quiet areas trigger earlier than busy ones. | #1 Advanced Visualization |
+| 🔗 **Criminological Network & Link Analysis** | Interactive Cytoscape.js graph showing connections between criminals — shared locations, known associates, matching **MO (Modus Operandi)**. Click any node to highlight its connections. | #2 Network & Link Analysis |
+| 👤 **MO Pattern Tracking** | Each criminal's MO is profiled: crime type, time of day, target selection, method. The system **auto-matches criminals** across cases by MO similarity — find the same offender before forensic confirmation. | #2 Network & Link Analysis |
+| 📊 **Sociological & AI-Driven Predictive Dashboard** | KPI cards (total crimes, active cases, alerts, risk average), 30-day trend chart, predictive risk score panel, anomaly feed. AI updates every metric in real time. | #3 Sociological & Predictive |
+| 🧠 **Strategic Intelligence Hub** | A dedicated high-level command page for senior officers: socio-economic correlation charts (crime vs literacy/poverty/density), predictive heatmap of tomorrow's risks, top-5 emerging trends, intelligence briefs. | #3 Sociological & Predictive |
+| 📈 **Pattern & Trend Discovery** | Time-series analysis showing crime trends by type, district, and time of day. Discover **when** crimes happen, not just **where**. Weekly/monthly pattern comparison. | #4 Pattern & Trend Discovery |
+| 🧩 **Socio-Economic Map Overlays** | Toggle overlays on the crime map: **literacy rate, poverty index, population density, police station coverage**. See how crime correlates with social factors. Powered by opencity.in + Census data. | #5 Behavioral Analysis |
+| 📰 **OSINT Scraping** | Scrape news websites for crime reports → auto-extract location, suspects, and case details via Celery workers. | Data Ingestion |
+| 📂 **Bulk Upload** | Drag-and-drop CSV/JSON upload → stored in Floci S3 → auto-parsed into database. | Data Ingestion |
 
 ### 💻 CyberCrime (IPs + Websites + Network Flow + Forensics)
 
@@ -442,10 +452,10 @@ Full interactive API documentation at `http://localhost:8000/docs` (Swagger UI).
 
 | Model | Algorithm | Input | Output | Update Frequency |
 |---|---|---|---|---|
-| **Crime Hotspot Detection** | DBSCAN (spatial clustering) | lat/lng of recent crimes | Cluster polygons with density score | Every hour |
-| **Criminal Risk Scoring** | Random Forest Classifier | Age, priors, crime types, associates | Risk score (0-100) + tier (Low/Medium/High/Extreme) | On each new case |
-| **Crime Anomaly Detection** | Isolation Forest | Crime frequency by district/time | Anomaly score + severity flag | Daily |
-| **Criminal Link Prediction** | Jaccard Similarity + Association Rules | Shared attributes between criminals | Link confidence score (0-1) | Hourly |
+| **Spatiotemporal Hotspot Detection** | DBSCAN (spatiotemporal clustering) | lat/lng + timestamp of recent crimes | Cluster polygons with density score + time pattern | Every hour |
+| **Predictive Risk Scoring** | Random Forest Classifier | Age, priors, crime types, associates, MO | Risk score (0-100) + tier (Low/Medium/High/Extreme) | On each new case |
+| **Emerging Trend Alert** | Isolation Forest | Crime frequency by district/time | Anomaly score + severity flag + red-zone trigger | Daily |
+| **MO & Link Prediction** | Jaccard Similarity + Association Rules | Shared attributes + MO patterns between criminals | Link confidence score (0-1) + MO match % | Hourly |
 
 ### CyberCrime Track Models
 
@@ -460,11 +470,13 @@ Full interactive API documentation at `http://localhost:8000/docs` (Swagger UI).
 
 ## 👥 User Roles
 
+Primary user: **SCRB (State Crime Records Bureau)** — the central intelligence unit of Karnataka State Police.
+
 | Role | Description | Capabilities |
 |---|---|---|
 | **Admin** | System administrator with full control | Manage users, all CRUD, data ingestion, ML retrain, system config, access both tracks |
-| **Sudo** | Data manager / analyst | Upload data (crime + cyber), scrape sources, manual entry, enrich IPs, train models, view everything |
-| **User** | Intelligence officer (view-only) | Crime dashboards, maps, network graphs, cyber dashboards, IP lookups, analysis reports |
+| **Sudo** | SCRB data manager / analyst | Upload data (crime + cyber), scrape sources, manual entry, enrich IPs, train models, view everything |
+| **User** | SCRB intelligence officer (view-only) | Crime dashboards, maps, network graphs, cyber dashboards, IP lookups, analysis reports |
 
 ---
 

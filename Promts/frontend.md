@@ -146,11 +146,38 @@ Four-panel grid layout:
 - System config panel (API endpoints status, model retrain button, DB stats)
 - Activity log
 
+### 10. Strategic Intelligence Hub (`/intelligence`)
+**Command center for senior SCRB officers:**
+- **Socio-Economic Correlation Panel:** Bar/heat charts showing crime rates vs literacy rate, poverty index, population density — toggle between factors
+- **Predictive Risk Heatmap:** Leaflet map showing tomorrow's predicted high-risk zones based on ML output
+- **Top-5 Emerging Trends:** Cards showing the fastest-rising crime types per district with % change arrows
+- **Intelligence Brief Cards:** Auto-generated summaries — "MO match detected: 3 chain-snatchings linked to same suspect"
+- **Red-Zone District Table:** List of districts currently in alert state with severity level and trend direction
+
+### Map & Graph Enhancements (Apply to All Relevant Pages)
+
+#### Leaflet Map (Crime Page, Dashboard, Intelligence Hub)
+- **District boundary polygons** — clickable → drill-down stats panel
+- **Red-zone pulsing** — when a district's Emerging Trend Alert triggers, its border glows red + pulse animation
+- **Spatiotemporal toggle** — buttons to switch between "All time" / "This week" / "This month" cluster views
+- **Socio-economic overlay dropdown** — toggle literacy/poverty/density layer on/off, overlaid as colored regions
+- **Cluster expansion** — click a hotspot → popup with crime type breakdown, time patterns, top criminals
+
+#### Cytoscape Network Graph (Network Page)
+- **MO match highlighting** — edges between criminals with similar MO are thicker, labeled with match percentage
+- **Timeline slider** — filter connections by date range
+- **Activity heat** — nodes glow red based on recency of criminal activity
+
+#### Cytoscape Cyber Flow Graph (Cyber Page Tab 4)
+- **Attack path highlighting** — shortest path between source IP and target highlighted
+- **Threat level coloring** — IP nodes colored by reputation score (green→yellow→red)
+- **Subgraph expand** — click a node → expand its immediate neighborhood
+
 ## Layout & Navigation
 
 ### Sidebar (Flowsint-inspired)
 - ULTRON logo + branding at top
-- Nav items with icons: Dashboard, Crime, Criminals, Cyber, Network, Analysis, Data, Admin
+- Nav items with icons: Dashboard, Crime, Criminals, Cyber, Network, Analysis, Intelligence Hub, Data, Admin
 - Active state highlighting
 - Collapsible (hamburger on mobile)
 - User avatar + role badge at bottom

@@ -11,8 +11,8 @@
 
 ## 🚦 Critical Rules for OpenCode
 
-### 1. Ask Before Push
-> Never `git push` without confirming with the user first. Always stage + commit locally, then ask: *"Ready to push?"*
+### 1. Log Before Push
+> Every push MUST have a corresponding entry in `changes.md` at the top with date, author, files changed, and reason. Write the entry first, then commit + push. Never push without logging.
 
 ### 2. One Task at a Time
 > Work through the execution plan in order (D1 → D2 → D3). Do NOT skip ahead or parallelize across days unless explicitly told.
@@ -42,6 +42,7 @@
 ### Day 1 — Design + Architecture + Frontend
 
 > **Goal:** Complete frontend built (all pages + components), architecture finalized, project skeleton ready.
+> **Primary user:** SCRB (State Crime Records Bureau) — all UIs are designed for intelligence officers.
 
 #### You (Backend + DB + Architecture)
 | Time | Task | Files |
@@ -49,21 +50,22 @@
 | 2h | Design full architecture diagrams, finalize project structure, Docker Compose skeleton + Nginx config | `docker-compose.yml`, `nginx/default.conf`, `backend/Dockerfile`, `frontend/Dockerfile` |
 | 1h | PostgreSQL + PostGIS schema — ALL tables (user, crime, criminal, crime_link, cyber_incident, cyber_ip, cyber_domain, cyber_flow, cyber_evidence, scrape_source, ml_prediction) | `models/*.py`, `database.py` |
 | 1h | Config + requirements + seed scripts | `config.py`, `requirements.txt`, `scripts/seed_data.py`, `scripts/seed_cyber.py` |
-| 1h | API contract shapes finalized — all response schemas | `schemas/*.py` |
+| 1h | API contract shapes finalized — all response schemas (including new: hotspots spatiotemporal, red-zone alerts, MO matching, socio-economic overlays, strategic intelligence endpoints) | `schemas/*.py` |
 
 **Definition of Done:** Architecture design complete, all DB models defined, Docker skeleton ready, seed scripts prepared.
 
 #### Person 1 (Frontend)
 | Time | Task | Files |
 |---|---|---|
-| 1.5h | Vite + React + Tailwind scaffold, routing (TanStack Router or react-router), auth context, layout shell (sidebar, header, protected route) | `App.tsx`, `pages/*`, `components/layout/*`, `context/auth.tsx` |
-| 1.5h | Login/Register page, Dashboard page (KPI cards, trend chart, alert panel) | `pages/LoginPage.tsx`, `pages/DashboardPage.tsx`, `components/dashboard/*` |
-| 1h | Crime list + detail + criminal table + Leaflet map with pins | `components/crime/*` |
-| 1h | Cyber incident list + detail + IP Tracker + Domain Analyzer | `components/cyber/*` |
-| 1h | Network flow graph (Cytoscape.js), Analysis panels (hotspots, anomalies), Data upload (file, scrape, manual) | `components/analysis/*`, `components/data/*`, NetworkFlowGraph |
-| 0.5h | Admin page (user table), loading/error states, responsive layout | `pages/AdminPage.tsx`, global hooks |
+| 1h | Vite + React + Tailwind scaffold, routing, auth context, layout shell (sidebar, header, protected route) — SCRB branding | `App.tsx`, `pages/*`, `components/layout/*`, `context/auth.tsx` |
+| 1h | Login page + Dashboard (KPI cards, trend chart, anomaly alert panel, red-zone pulse indicator) | `pages/LoginPage.tsx`, `pages/DashboardPage.tsx`, `components/dashboard/*` |
+| 1h | **Advanced Visualization** — Crime map with spatiotemporal cluster overlays (Leaflet), district drill-down, **red-zone pulsing** on district borders when alert triggers | `components/crime/CrimeMap.tsx`, `components/crime/CrimeDetail.tsx` |
+| 1h | Crime list + detail + criminal table + **MO Pattern Tracking** panel + **Socio-Economic overlay controls** on map | `components/crime/CrimeList.tsx`, `components/crime/CriminalTable.tsx` |
+| 1h | **Strategic Intelligence Hub** page — socio-economic correlation charts, predictive heatmap, top-5 emerging trends, intelligence brief cards | `pages/IntelligenceHub.tsx`, `components/analysis/*` |
+| 1h | Cyber incident list + detail + IP Tracker + Domain Analyzer + Network Flow Graph | `components/cyber/*` |
+| 0.5h | Data upload (file, scrape, manual) + Admin page + loading/error states | `components/data/*`, `pages/AdminPage.tsx` |
 
-**Definition of Done:** All frontend pages render with mock data, routing works, auth flow works, maps/graphs render.
+**Definition of Done:** All frontend pages render with mock data — including new Strategic Hub, red-zone pulses, MO tracking, socio-economic overlays. Cyber pages intact.
 
 ---
 

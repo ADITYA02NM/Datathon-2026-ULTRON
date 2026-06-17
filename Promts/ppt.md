@@ -13,32 +13,34 @@ Generate a professional, visually stunning 10-slide presentation for **ULTRON (U
 ## Slide 1 — Title Slide
 **Title:** ULTRON — Unified Law Enforcement Threat Response & Optimization Nexus
 **Subtitle:** AI-Powered Crime & CyberCrime Analytics Platform
-**Footer:** Datathon 2026 | Karnataka State Police
+**Footer:** Datathon 2026 | Karnataka State Police — SCRB
 **Visual:** Dark background with abstract network graph/glowing blue nodes. Karnataka map silhouette faintly visible. ULTRON logo centered.
 
 ---
 
 ## Slide 2 — The Problem
-**Title:** The Intelligence Gap
+**Title:** The Intelligence Gap at SCRB
 **Content (3 columns/bullets):**
-- **Siloed Data:** Crime records scattered across manual systems, no unified view
+- **Siloed Data:** Crime records scattered across manual systems at the State Crime Records Bureau — no unified view for analysts
 - **Reactive Policing:** No predictive tools — officers respond after crimes happen, not before
 - **Cyber Blind Spot:** Digital crimes (phishing, hacking, fraud) lack structured investigation tools
+- **Hidden Patterns:** Spatiotemporal trends, MO matches, and socio-economic correlations go undiscovered without AI
 
 **Visual:** Split screen — left shows messy/file cabinets/manual paperwork, right shows a dark void with question marks. Subtle red accent.
 
 ---
 
 ## Slide 3 — Our Solution: ULTRON
-**Title:** One Platform. Two Tracks. Infinite Intelligence.
+**Title:** One Platform. 6 Core Capabilities. Two Specialized Tracks.
 **Two-column layout:**
 
-| 🚔 Crime Track | 💻 CyberCrime Track |
+| 🚔 Crime Track (SCRB Intelligence) | 💻 CyberCrime Track |
 |---|---|
-| OSINT-powered crime intelligence | IP & domain forensic tracking |
-| Criminal network visualization | Network flow & attack path mapping |
-| AI hotspot & anomaly detection | Phishing & threat intelligence |
-| District-level drilldown dashboards | Digital evidence chain-of-custody |
+| Spatiotemporal cluster detection | IP & domain forensic tracking |
+| MO pattern matching & link analysis | Network flow & attack path mapping |
+| Socio-economic AI-driven dashboards | Phishing & threat intelligence |
+| Red-zone emerging trend alerts | Digital evidence chain-of-custody |
+| Strategic Intelligence Hub | Real-time cyber monitoring |
 
 **Visual:** Diagram showing two parallel pipelines feeding into a central command dashboard. Blue glow effect.
 
