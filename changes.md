@@ -19,6 +19,15 @@
 
 ---
 
+## 2026-06-16 22:55
+**Author:** OpenCode (Build mode)
+**Files changed:**
+- `Promts/flow.md` — Created comprehensive flowchart doc: 14 diagrams covering system architecture, data flow, page layouts, DB schema, ML models, user journeys, auth flow, data pipeline, deployment, API lifecycle, and full frontend component tree
+**Reason:** Visual learner needs — all graphs and flowcharts in a single reference file
+**Status:** Done
+
+---
+
 ## 2026-06-16 22:50
 **Author:** OpenCode (Build mode)
 **Files changed:**
