@@ -178,6 +178,14 @@ Person 1 builds frontend components that consume these APIs. Agree on shapes ear
 | GET | `/crime/{id}` | `{ id, type, date, location, lat, lng, district, status, description, criminals: [...], evidence: [...] }` |
 | GET | `/criminal?search=&page=` | `{ criminals: [{id, name, age, risk_score, risk_tier, priors_count, photo_url}] }` |
 | GET | `/criminal/{id}` | `{ id, name, age, risk_score, risk_tier, priors, crimes: [...], links: [...] }` |
+| GET | `/crime/spatiotemporal?range=week\|month\|all` | `{ clusters: [{id, center_lat, center_lng, radius, density, crime_types: [{type, count}], peak_hours, top_criminals}] }` |
+| GET | `/crime/red-zones` | `{ red_zones: [{district, severity: high\|med\|low, trend: rising\|stable\|falling, anomaly_score, emerging_types: [...], affected_area_lat, affected_area_lng}] }` |
+| POST | `/crime/match-mo` | `body: { description, crime_type?, location? }` → `{ matches: [{criminal_id, name, match_percent, shared_types: [...], total_priors, risk_score}] }` |
+| GET | `/crime/mo/{criminal_id}` | `{ criminal_id, mo_signature, similar_criminals: [{id, name, match_percent, shared_types}], linked_cases: [{id, type, date, match_score}] }` |
+| GET | `/crime/socio-economic?district=` | `{ district, crime_rate, literacy_rate, poverty_index, population_density, police_coverage, correlation_scores: { vs_literacy, vs_poverty, vs_density } }` |
+| GET | `/intelligence/brief` | `{ briefs: [{type, title, summary, severity, affected_district, timestamp, related_crime_ids}] }` |
+| GET | `/intelligence/trending?days=30` | `{ trends: [{crime_type, district, percent_change, direction: up\|down, volume}] }` |
+| GET | `/intelligence/predictive-zones` | `{ predictions: [{district, risk_level, confidence, top_types: [{type, probability}], recommendations: [...] }] }`
 
 ### Cyber Track
 | Method | Endpoint | Response Shape |
@@ -199,7 +207,7 @@ Person 1 builds frontend components that consume these APIs. Agree on shapes ear
 ### Dashboard
 | Method | Endpoint | Response Shape |
 |---|---|---|
-| GET | `/dashboard/stats` | `{ total_crimes, active_cases, alerts_today, cyber_incidents_today, crimes_trend: [...], cyber_trend: [...], top_districts: [...] }` |
+| GET | `/dashboard/stats` | `{ total_crimes, active_cases, alerts_today, cyber_incidents_today, crimes_trend: [...], cyber_trend: [...], top_districts: [...], red_zone_count, emerging_trend_count }` |
 
 ---
 

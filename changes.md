@@ -19,6 +19,15 @@
 
 ---
 
+## 2026-06-16 22:50
+**Author:** OpenCode (Build mode)
+**Files changed:**
+- `split.md` — Added API contract for all new endpoints: spatiotemporal, red-zone, MO matching, socio-economic, Strategic Hub intelligence; updated rule 1; updated dashboard stats shape
+**Reason:** Complete API contract for frontend dev reference — all enhanced crime features now documented
+**Status:** Done
+
+---
+
 ## 2026-06-16 22:45
 **Author:** OpenCode (Build mode)
 **Files changed:**
