@@ -48,6 +48,16 @@
 
 ---
 
+## 2026-06-16 23:15
+**Author:** OpenCode (Build mode)
+**Files changed:**
+- `centre.jpeg` — Added radial navigation reference image (4-ring SVG design from original centre.jpeg)
+- `flowsint.png` — Added Flowsint-style graph editor reference image
+**Reason:** Push design reference images for frontend development
+**Status:** Done
+
+---
+
 ## 2026-06-16 22:45
 **Author:** OpenCode (Build mode)
 **Files changed:**
