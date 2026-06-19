@@ -51,10 +51,10 @@ Generate a professional, visually stunning 10-slide presentation for **ULTRON (U
 **Visual:** Centered tech logo grid/wheel showing:
 - **Frontend:** React 19 · TypeScript · Vite · Tailwind CSS
 - **Maps & Graphs:** Leaflet · Cytoscape.js · Recharts
-- **Backend:** Python FastAPI · Celery · Redis
-- **AI/ML:** scikit-learn (Random Forest · DBSCAN · Isolation Forest)
-- **Database:** PostgreSQL 16 + PostGIS 3.4
-- **Infrastructure:** Docker Compose · Floci S3
+- **Backend:** Catalyst Functions · AppSail
+- **AI/ML:** Zia AutoML · AppSail (Custom ML)
+- **Database:** Catalyst Data Store (ZCQL)
+- **Infrastructure:** Zoho Catalyst (Slate, Functions, Stratus)
 
 **Footer note:** Zero cloud dependency — fully containerized for on-premise deployment.
 
@@ -64,28 +64,31 @@ Generate a professional, visually stunning 10-slide presentation for **ULTRON (U
 **Title:** Platform Architecture
 **Visual:** Full architecture flow diagram showing:
 ```
-User Browser → Nginx → FastAPI Backend
-  ├── Crime Pipeline → PostGIS → ML Engine
-  ├── Cyber Pipeline → PostGIS → ML Engine
-  └── Shared Services (Auth, S3, Celery)
+User Browser (Slate) → API Gateway → Catalyst Functions
+  ├── Crime Pipeline → Data Store → Zia AutoML
+  ├── Cyber Pipeline → Data Store → Zia AutoML
+  └── Services (Catalyst Auth, Stratus, SmartBrowz)
 ```
 **Callout boxes:**
-- **Data Ingestion:** File Upload, Web Scraping, Manual Entry → Floci S3
+- **Data Ingestion:** File Upload, SmartBrowz Scraping, Manual Entry → Catalyst Stratus
 - **AI Engine:** Risk Scoring, Hotspot Detection, Anomaly Detection, Phishing Analysis
 - **Visualization:** Command Dashboard, Interactive Maps, Network Graphs
 
 ---
 
-## Slide 6 — AI & ML Models
+## Slide 6 — AI & ML Models (Zia AutoML + AppSail)
 **Title:** Intelligence Under the Hood
 **Four-card grid layout:**
 
-| Model | What It Does |
-|---|---|
-| 🎯 **Criminal Risk Scoring** | Random Forest predicts recidivism risk (0-100) with tier classification |
-| 🔥 **Hotspot Detection** | DBSCAN clusters crime locations into density zones — heatmap overlay |
-| ⚠️ **Anomaly Detection** | Isolation Forest flags unusual crime patterns across districts |
-| 🕸️ **IP Reputation** | ML-based scoring of IPs/domains involved in cyber incidents |
+| Model | Platform | What It Does |
+|---|---|---|
+| 🎯 **Criminal Risk Scoring** | Zia AutoML | Random Forest predicts recidivism risk (0-100) with tier classification |
+| 🔥 **Hotspot Detection** | AppSail (Docker) | DBSCAN clusters crime locations into density zones — heatmap overlay |
+| ⚠️ **Anomaly Detection** | Zia AutoML | Isolation Forest flags unusual crime patterns across districts |
+| 🕸️ **IP Reputation** | Zia AutoML | ML-based scoring of IPs/domains involved in cyber incidents |
+| 🧬 **MO & Link Analysis** | AppSail (Docker) | TF-IDF + Cosine similarity matches MO patterns across cases |
+| 🔭 **Predictive Zones** | AppSail (Docker) | ARIMA time-series forecasting for tomorrow's hotspot locations |
+| 🎣 **Phishing Detection** | Zia AutoML | Logistic Regression classifies domains as malicious/benign |
 
 **Visual:** Each card has a small icon/animated graph showing the model in action.
 
@@ -155,6 +158,25 @@ User Browser → Nginx → FastAPI Backend
 
 ---
 
+## Slide 10 — Powered by Zoho Catalyst
+**Title:** Enterprise-Grade Infrastructure
+**Layout:** 6 service cards in 2 rows
+
+| Service | Role |
+|---|---|
+| **Slate** | Frontend hosting with auto-deploy from GitHub |
+| **Functions** | Serverless Python API backend |
+| **Data Store** | Relational database (ZCQL) |
+| **AppSail** | Custom Docker containers for complex ML models |
+| **Zia AutoML** | No-code tabular ML (Risk Score, Phishing, Anomaly) |
+| **Authentication** | Built-in user management + Embedded SDK |
+| **Stratus** | Object storage for evidence files |
+| **Cron + SmartBrowz** | Scheduled web scraping automation |
+
+**Visual:** Catalyst ecosystem diagram showing all connected services.
+
+---
+
 ## Slide 11 — Roadmap & Conclusion
 **Title:** The Future of Policing Starts Here
 **Two-column layout:**
@@ -163,8 +185,8 @@ User Browser → Nginx → FastAPI Backend
 |---|---|
 | 2-track platform (Crime + Cyber) | Real-time WebSocket feeds |
 | 4 ML models deployed | WhatsApp bot for field queries |
-| Docker on-prem deployment | React Native mobile app |
-| JWT role-based security | LSTM time-series forecasting |
+| Catalyst AppSail containerization | React Native mobile app |
+| Catalyst Authentication (Embedded) | LSTM time-series forecasting |
 | Synthetic + opencity.in data | CCTV video analytics integration |
 
 **Bottom CTA:** "Transforming Karnataka Police into a data-driven, AI-powered force."

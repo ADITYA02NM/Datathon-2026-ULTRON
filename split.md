@@ -4,8 +4,8 @@
 
 | Role | Person | Responsibilities |
 |---|---|---|
-| **You** | Backend + DB + ML + Infra | FastAPI, PostgreSQL, ML models, scraping engine, Celery, Docker, seed data, everything non-UI |
-| **Person 1** | Frontend | React + TypeScript + Vite + Tailwind, Leaflet maps, Cytoscape graphs, Recharts, all pages/components |
+| **You** | Backend + DB + ML + Infra | Catalyst Functions, Catalyst Data Store, Zia AutoML, Cron, AppSail, seed data |
+| **Person 1** | Frontend | React + TypeScript + Vite (Catalyst Slate), Leaflet maps, Cytoscape, Zustand |
 
 ---
 
@@ -25,9 +25,9 @@
 
 ### 5. Seed Data First
 > Before any frontend can be built, seed data must exist. Always run seed scripts after schema migrations.
-### 6. Docker Smoke Test
+### 6. Catalyst Deployment
 
-> At the end of D3, the entire system must work with a single `docker compose up -d`. No manual setup steps.
+> At the end of D3, the entire system must be deployed and working on Zoho Catalyst (Slate + Functions + Data Store + Zia AutoML).
 
 ### 7. Commit Often
 > Commit after every meaningful unit of work (a working API, a working page, a fixed bug). Messages: `feat:`, `fix:`, `db:`, `ml:`, `frontend:`, `infra:`.
@@ -47,12 +47,12 @@
 #### You (Backend + DB + Architecture)
 | Time | Task | Files |
 |---|---|---|
-| 2h | Design full architecture diagrams, finalize project structure, Docker Compose skeleton + Nginx config | `docker-compose.yml`, `nginx/default.conf`, `backend/Dockerfile`, `frontend/Dockerfile` |
-| 1h | PostgreSQL + PostGIS schema — ALL tables (user, crime, criminal, crime_link, cyber_incident, cyber_ip, cyber_domain, cyber_flow, cyber_evidence, scrape_source, ml_prediction) | `models/*.py`, `database.py` |
-| 1h | Config + requirements + seed scripts | `config.py`, `requirements.txt`, `scripts/seed_data.py`, `scripts/seed_cyber.py` |
+| 2h | Design full architecture diagrams, finalize project structure, Catalyst Project Setup | `catalyst.json` |
+| 1h | Catalyst Data Store (ZCQL) schema — ALL tables (Crimes, Criminals, CyberIncidents, Districts) | `catalyst_schema.sql` |
+| 1h | Config + requirements + Catalyst Functions setup | `functions/requirements.txt`, `functions/main.py` |
 | 1h | API contract shapes finalized — all response schemas (including new: hotspots spatiotemporal, red-zone alerts, MO matching, socio-economic overlays, strategic intelligence endpoints) | `schemas/*.py` |
 
-**Definition of Done:** Architecture design complete, all DB models defined, Docker skeleton ready, seed scripts prepared.
+**Definition of Done:** Architecture design complete, all Data Store models defined, Catalyst project ready, seed data prepared.
 
 #### Person 1 (Frontend)
 | Time | Task | Files |
@@ -71,20 +71,20 @@
 
 ### Day 2 — Backend + Verify + Deploy + Setup
 
-> **Goal:** All backend APIs built, frontend connected to live backend, Docker deployment working.
+> **Goal:** All backend APIs built, frontend connected to live backend, Catalyst deployment working.
 
 #### You (Backend + DB + ML)
 | Time | Task | Files |
 |---|---|---|
-| 1h | FastAPI scaffold + config + DB connection + User model + JWT auth (login/register/me/middleware) | `main.py`, `config.py`, `database.py`, `models/user.py`, `routers/auth.py`, `services/auth_service.py`, `middleware/auth_middleware.py` |
-| 1h | Crime + Criminal CRUD APIs, bulk upload (S3), manual entry API | `routers/crimes.py`, `routers/criminals.py`, `routers/ingestion.py`, `services/s3_service.py` |
-| 1h | Cyber endpoints (incidents, IP lookup, domain lookup, flows, evidence), IP enrichment service | `routers/cyber.py`, `services/cyber_service.py`, `services/ip_enrich_service.py` |
-| 1h | Scrape engine + Celery setup + scrape sources | `workers/celery_app.py`, `tasks/scrape_task.py`, `models/scrape_source.py`, `routers/scrape.py` |
-| 1h | ML service — ALL models (RF risk, DBSCAN hotspot, Isolation Forest anomaly, IP reputation, phishing detection, flow anomaly) + Celery train task | `services/ml_service.py`, `tasks/ml_train_task.py`, `routers/analysis.py` |
-| 1h | Network graph APIs (crime + cyber), Dashboard stats API, admin endpoints, forensics API | `routers/network.py`, `routers/cyber_network.py`, `routers/dashboard.py`, `services/network_service.py`, `services/forensics_service.py` |
-| 1h | Run seed scripts, Docker Compose + Floci integration, smoke test all endpoints | Seed all data, verify `docker compose up -d` |
+| 1h | Catalyst Functions (Advanced I/O) scaffold + Catalyst Authentication setup | `functions/auth.py`, `functions/main.py` |
+| 1h | Crime + Criminal CRUD APIs on Functions, file upload to Stratus | `functions/crimes.py`, `functions/criminals.py` |
+| 1h | Cyber endpoints (incidents, IP lookup, domain lookup, flows), enrichment service | `functions/cyber.py` |
+| 1h | Scrape engine via Catalyst Cron + SmartBrowz | `functions/cron.py` |
+| 1h | ML Models: Zia AutoML setup (RF, IF), AppSail custom container (ARIMA, TF-IDF) | `appsail/app.py` |
+| 1h | API Gateway config + Dashboard stats + Intelligence Hub APIs | `api-gateway.json`, `functions/dashboard.py` |
+| 1h | Catalyst Deploy, smoke test all endpoints | Verify `catalyst deploy` |
 
-**Definition of Done:** `POST /auth/login` works, all CRUD APIs return data, ML models return predictions, `docker compose up -d` launches everything.
+**Definition of Done:** Catalyst Auth works, all Functions return data, Zia AutoML returns predictions, `catalyst deploy` launches everything.
 
 #### Person 1 (Frontend — Integration)
 | Time | Task | Files |

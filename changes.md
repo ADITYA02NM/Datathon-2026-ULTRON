@@ -80,6 +80,20 @@
 
 ---
 
+## 2026-06-16 23:30
+**Author:** OpenCode (Build mode)
+**Files changed:**
+- `PRD.md` — Created comprehensive Product Requirements Document (PRD) with full Zoho Catalyst service mapping, architecture, migration plan, schema design, and submission checklist
+- `README.md` — Updated Tech Stack to Catalyst native (Slate, Functions, Data Store, Zia AutoML, AppSail, Stratus, Cron+SmartBrowz, Catalyst Auth, API Gateway); Replaced architecture diagram with Catalyst ecosystem flow; Updated Getting Started for Catalyst deploy
+- `split.md` — Updated Team roles to Catalyst services; Rule 6 → Catalyst Deployment; Day1/2/3 plans rewritten for Catalys; Functions, API Gateway, Auth, Zia AutoML, AppSail, Cron, Stratus
+- `Promts/main.md` — Replaced all old tech refs (FastAPI→Functions, PostGIS→Data Store, Celery→Cron, Floci→Stratus, JWT→Auth, scikit-learn→Zia AutoML/AppSail)
+- `Promts/ppt.md` — Updated Slide 5 arch diagram, Slide 6 ML models (Zia AutoML + AppSail columns), Slide 10 catalyst platform cards
+- `Promts/flow.md` — Updated all 14 diagrams: architecture, data pipeline, DB→Data Store, scraping→Cron+SmartBrowz, deployment→Catalyst ecosystem, auth→Catalyst Auth
+**Reason:** Align entire project documentation with Zoho Catalyst deployment for Datathon 2026 submission requirements
+**Status:** Done
+
+---
+
 ## 2026-06-16 22:45
 **Author:** OpenCode (Build mode)
 **Files changed:**

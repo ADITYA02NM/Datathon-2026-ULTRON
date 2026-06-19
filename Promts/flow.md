@@ -12,7 +12,7 @@
 │         └────┬─────┘  └────┬────┘  └────┬─────┘  └─────┬─────┘        │
 │              │              │             │               │              │
 └──────────────┼──────────────┼─────────────┼───────────────┼──────────────┘
-               │              │  🔐 JWT Auth│               │
+               │              │  🔐 Catalyst Auth│               │
                ▼              ▼             ▼               ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                        REACT FRONTEND (Vite + TS)                       │
@@ -46,7 +46,7 @@
 │   └─────────────────────────────────────────────────────────────────┘   │
 │        │              │              │                                  │
 │   ┌────▼──────────────▼──────────────▼────────────────────────────────┐ │
-│   │                     ML MODELS (scikit-learn)                       │ │
+│   │                     Zia AutoML + AppSail                       │ │
 │   │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌────────────────┐   │ │
 │   │  │RiskScore │  │ Anomaly  │  │ MO Match │  │  Predictive    │   │ │
 │   │  │Classifier│  │ Detector │  │(TF-IDF + │  │  Zone Forecaster│   │ │
@@ -57,7 +57,7 @@
 │        │                                                                │
 │   ┌────▼──────────────────────────────────────────────────────────────┐ │
 │   │                    DATA LAYER                                      │ │
-│   │   PostgreSQL (main DB)     │   Redis (cache + Celery broker)       │ │
+│   │   Catalyst Data Store     │   Catalyst Cache       │ │
 │   │   ┌─────────────────┐     │   ┌──────────────────┐                │ │
 │   │   │ crimes, criminals│     │   │ session cache,   │                │ │
 │   │   │ cyber_incidents  │     │   │ task queue       │                │ │
@@ -71,7 +71,7 @@
 │                     EXTERNAL INTEGRATIONS                                │
 │                                                                         │
 │   ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐   │
-│   │   Celery Scraper │    │  Floci S3         │    │  opencity.in    │   │
+│   │   Celery Scraper │    │  Catalyst Stratus         │    │  opencity.in    │   │
 │   │   (scheduled)   │    │  (file storage)   │    │  (demographic   │   │
 │   │   ↓             │    │  - evidence docs  │    │   data)         │   │
 │   │   Cyber threat   │    │  - ML exports     │    │                 │   │
@@ -120,7 +120,7 @@ CRIME REPORTED
                         │      LOGIN PAGE         │
                         │   Username + Password   │
                         └───────────┬─────────────┘
-                                    │  🔐 JWT Token
+                                    │  🔐 Catalyst Auth
                                     ▼
 ┌──────────────────────────────────────────────────────────────────────┐
 │                        SIDEBAR (Collapsible)                         │
@@ -226,7 +226,7 @@ CRIME REPORTED
 
 ---
 
-## 6. Database Schema — Full Entity Relationship
+## 6. Catalyst Data Store Schema (ZCQL) — Full Entity Relationship
 
 ```
 ┌─────────────┐       ┌────────────────┐       ┌──────────────────┐
@@ -389,7 +389,7 @@ USER LOGIN (/auth/login)
       │
       ▼
 ┌───────────────────────────────────────────────────┐
-│  JWT Token issued with: { user_id, role, district }│
+│  Catalyst Auth Token with: { user_id, role, district }│
 └──────────────────────┬────────────────────────────┘
                        │
         ┌──────────────┼──────────────┐
@@ -406,10 +406,10 @@ USER LOGIN (/auth/login)
 
 ---
 
-## 11. Data Pipeline — Crawl → Enrich → Analyze
+## 11. Data Pipeline (Cron + SmartBrowz) — Crawl → Enrich → Analyze
 
 ```
-SCHEDULED SCRAPE (Celery every 6hrs)
+SCHEDULED SCRAPE (Catalyst Cron every 6hrs)
        │
        ▼
 ┌─────────────────────────────────────────────┐
@@ -449,31 +449,40 @@ SCHEDULED SCRAPE (Celery every 6hrs)
 
 ---
 
-## 12. Deployment Architecture
+## 12. Deployment Architecture (Zoho Catalyst)
 
 ```
-┌─────────────────────────────────────────────────┐
-│                  DOCKER COMPOSE                   │
-│                                                   │
-│  ┌──────────────┐    ┌──────────────────────┐   │
-│  │  React App    │    │  FastAPI + Uvicorn   │   │
-│  │  (Nginx)      │◄──►│  Port 8000           │   │
-│  │  Port 80      │    │  JWT middleware      │   │
-│  └──────────────┘    └──────────┬───────────┘   │
-│                                 │                │
-│  ┌──────────────┐    ┌──────────▼───────────┐   │
-│  │  PostgreSQL  │    │  Celery Worker        │   │
-│  │  Port 5432   │◄──►│  (scraping + ML)      │   │
-│  └──────────────┘    └──────────────────────┘   │
-│                                 │                │
-│  ┌──────────────┐    ┌──────────▼───────────┐   │
-│  │  Redis       │    │  Floci S3 (MinIO)     │   │
-│  │  Port 6379   │◄──►│  Port 9000            │   │
-│  └──────────────┘    └──────────────────────┘   │
-│                                                   │
-│  One command: docker compose up -d               │
-│  Zero manual steps required                       │
-└─────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│                    ZOHO CATALYST ECOSYSTEM                    │
+│                                                              │
+│  ┌─────────────────────────┐  ┌─────────────────────────┐   │
+│  │     SLATE (Frontend)    │  │   FUNCTIONS (Backend)   │   │
+│  │  React 19 + TypeScript  │◄─┤   Advanced I/O Python  │   │
+│  │  Auto-deploy via GitHub │  │   REST API endpoints    │   │
+│  │  Free SSL + Preview URL │  │   ZCQL database access  │   │
+│  └─────────────────────────┘  └──────────┬──────────────┘   │
+│                                          │                   │
+│  ┌─────────────────────────┐  ┌──────────▼──────────────┐   │
+│  │     DATA STORE          │  │   AppSail (Docker)      │   │
+│  │  ZCQL Relational DB     │◄─┤   Custom ML Models      │   │
+│  │  OLAP for analytics     │  │   TF-IDF + ARIMA        │   │
+│  └─────────────────────────┘  └─────────────────────────┘   │
+│                                                              │
+│  ┌─────────────────────────┐  ┌─────────────────────────┐   │
+│  │     ZIA AutoML          │  │   CRON + SMARTBROWZ     │   │
+│  │  No-code tabular ML     │  │   Scheduled scraping    │   │
+│  │  RF, IF, Logistic Reg   │  │   Headless browser      │   │
+│  └─────────────────────────┘  └─────────────────────────┘   │
+│                                                              │
+│  ┌─────────────────────────┐  ┌─────────────────────────┐   │
+│  │     AUTHENTICATION      │  │   STRATUS (Storage)     │   │
+│  │  Embedded UI in React   │  │   Evidence & file sync  │   │
+│  │  Role-based access      │  │   S3-compatible API     │   │
+│  └─────────────────────────┘  └─────────────────────────┘   │
+│                                                              │
+│  One command: catalyst deploy                                 │
+│  GitHub push → auto-build + deploy on Slate                  │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -490,10 +499,10 @@ React Router → /crime/1423
 Zustand store dispatches → fetch('/api/crime/1423')
        │
        ▼
-Headers: { Authorization: "Bearer <JWT>" }
+Headers: { Authorization: "Bearer <Catalyst Token>" }
        │
        ▼
-FASTAPI Middleware:  Verifies JWT signature
+Catalyst Auth:  Verifies token signature
        │               Extracts user_id, role
        │               Attaches user to request
        ▼
@@ -503,7 +512,7 @@ FASTAPI Middleware:  Verifies JWT signature
 │  1. Check user has permission for this crime  │
 │     (SCRB admin → all, district ofc → own)   │
 │                                               │
-│  2. Query PostgreSQL:                         │
+│  2. Query Data Store:                         │
 │     SELECT * FROM crimes WHERE id=1423       │
 │                                               │
 │  3. Query related:                            │
@@ -526,7 +535,7 @@ Response: { id: 1423, type: "theft", criminals: [...], ... }
 
 ```
 App.tsx
-├── AuthProvider (JWT context)
+├── AuthProvider (Catalyst Auth context)
 ├── Router
 │   ├── /login → LoginPage
 │   │   ├── LoginForm

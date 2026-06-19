@@ -31,7 +31,7 @@ AI-powered crime intelligence aligned with the 6 SCRB capabilities:
 - **Socio-Economic Map Overlays** — Toggle literacy, poverty, density layers on crime map
 - **Pattern & Trend Discovery** — Time-series analysis by type, district, time of day
 - **OSINT Scraping** — News website scraping → auto-extract location, suspects, case details
-- **Bulk Upload** — CSV/JSON drag-drop → Floci S3 → auto-parse into DB
+- **Bulk Upload** — CSV/JSON drag-drop → Catalyst Stratus → auto-parse into DB
 
 ### 2. 💻 CyberCrime Track (IPs + Websites + Network Flow + Forensics)
 Advanced cybercrime investigation with digital trail tracking:
@@ -52,15 +52,15 @@ Advanced cybercrime investigation with digital trail tracking:
 | Maps | Leaflet + React-Leaflet + Leaflet.heat |
 | Graphs | Cytoscape.js |
 | Charts | Recharts |
-| Backend | Python FastAPI + Uvicorn |
-| ML/AI | scikit-learn (Random Forest, DBSCAN, Isolation Forest) |
+| Backend | Catalyst Functions (Python Advanced I/O) + API Gateway |
+| ML/AI | Zia AutoML + Catalyst AppSail |
 | Cyber Intel | Python `whois`, `dnspython`, `ipinfo`, `pyshark` |
-| OSINT | BeautifulSoup4 + Playwright |
-| Task Queue | Celery + Redis |
-| Database | PostgreSQL 16 + PostGIS 3.4 |
-| File Storage | Floci (Local AWS Emulator — S3-compatible, no AWS account needed) |
-| Auth | JWT (python-jose + passlib + bcrypt) — Role-based (Admin / Sudo / User) |
-| Infrastructure | Docker Compose (single-command deploy) |
+| OSINT | Catalyst Cron + SmartBrowz |
+| Task Queue | Catalyst Cron |
+| Database | Catalyst Data Store (ZCQL) |
+| File Storage | Catalyst Stratus |
+| Auth | Catalyst Authentication (Embedded) — Role-based (Admin / Analyst / Viewer) |
+| Infrastructure | Zoho Catalyst (Slate, Functions, AppSail) |
 
 ## Architecture
 
@@ -74,29 +74,29 @@ User Browser (React 19 + TypeScript + Tailwind + anime.js + React Flow)
   └── Intel Graph (Flowsint-style React Flow editor — 7 node types)
 
 All → Nginx Reverse Proxy (:80)
-      ├── FastAPI Backend (:8000)
+      ├── Catalyst Functions (:8000)
       │   ├── Crime Track (Crime CRUD, Criminals, OSINT Scrape, Network Graph, Hotspot ML)
       │   ├── CyberCrime Track (IP/Domain APIs, Phishing Cases, Network Flow, Forensics, Threat Intel)
-      │   └── Shared Services (JWT Auth, S3 Service, Celery Client, ML Engine)
+      │   └── Shared Services (Catalyst Auth, Stratus, Cron, AppSail)
       └── Vite Dev Server (:5173)
 
 Backend connects to:
-  ├── PostgreSQL 16 + PostGIS 3.4 (:5432)
-  ├── Floci S3 (:4566)
+  ├── Catalyst Data Store (ZCQL) (:5432)
+  ├── Catalyst Stratus (:4566)
   ├── Redis (:6379)
-  └── Celery Workers (scrape + ML + enrichment)
+  └── Cron + SmartBrowz (scrape) + AppSail (ML)
 ```
 
 ## Data Flow
 
-**Crime Pipeline:** File Upload / Web Scrape → Floci S3 → Parse → PostgreSQL + PostGIS → ML (DBSCAN, RF, IF) → FastAPI → React
+**Crime Pipeline:** File Upload / Web Scrape → Catalyst Stratus → Parse → PostgreSQL + PostGIS → ML (DBSCAN, RF, IF) → FastAPI → React
 
-**CyberCrime Pipeline:** Manual Entry / IP Lookup → Floci S3 → Enrich (WHOIS, DNS, IPinfo) → PostgreSQL → ML (Anomaly, Correlate) → FastAPI → React
+**CyberCrime Pipeline:** Manual Entry / IP Lookup → Catalyst Stratus → Enrich (WHOIS, DNS, IPinfo) → Data Store → ML (Anomaly, Correlate) → Functions → React
 
 ## API Endpoints
 
 ### Auth
-- `POST /auth/login` — JWT login (All)
+- `POST /auth/login` — Catalyst Auth login (All)
 - `POST /auth/register` — Create user (Admin)
 
 ### Crime Track
@@ -182,18 +182,18 @@ Backend connects to:
 ULTRON/
 ├── backend/
 │   ├── app/
-│   │   ├── main.py              # FastAPI entry
+│   │   ├── functions.py          # Catalyst Functions entry
 │   │   ├── config.py            # Config
-│   │   ├── database.py          # SQLAlchemy + PostGIS
+│   │   ├── datastore.py         # Catalyst Data Store config
 │   │   ├── models/              # DB models (user, crime, criminal, crime_link, cyber_*, scrape_source, ml_prediction)
 │   │   ├── schemas/             # Pydantic schemas (auth, crime, criminal, cyber, analysis, dashboard)
 │   │   ├── routers/             # API routes (auth, crimes, criminals, analysis, network, cyber, cyber_network, scrape, ingestion, dashboard)
 │   │   ├── services/            # Business logic (auth, ml, scrape, s3, network, cyber, ip_enrich, forensics)
 │   │   └── middleware/          # Auth middleware
-│   ├── workers/                 # Celery + tasks (scrape, ml_train, ip_enrich, pcap_parse)
+│   ├── functions/              # Catalyst Functions + Cron
 │   ├── scripts/                 # seed_data.py, seed_cyber.py, load_opencity.py
 │   ├── requirements.txt
-│   └── Dockerfile
+│   └── Dockerfile (AppSail container)
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
@@ -212,7 +212,7 @@ ULTRON/
 │   ├── package.json
 │   ├── vite.config.ts
 │   ├── tailwind.config.js
-│   └── Dockerfile
+│   └── Dockerfile (AppSail container)
 ├── docker-compose.yml
 ├── nginx/default.conf
 ├── .gitignore
@@ -228,15 +228,15 @@ ULTRON/
 ## 3-Day Execution Plan
 
 ### Day 1 — Design + Architecture + Frontend
-- **You:** Architecture design, all DB models, Docker skeleton, seed scripts, API contract shapes
+- **You:** Architecture design, all DB models, Catalyst project, seed scripts, API contract shapes
 - **Person 1 (Frontend):** Single dynamic page: KSP Header (logo + CM + Dy CM) → Section Nav (anime.js) → 4-Ring Radial Navigation (SVG gold/teal/purple/red) → full-page transitions to Dashboard | Maps | Network | Intel. Flowsint-style Intel Graph (React Flow, 7 nodes: IP/Name/Place/Object/How/Why/What). All crime/cyber/analysis/data/admin features. Dummy SCRB CSV data.
 
 ### Day 2 — Backend + Verify + Deploy + Setup
-- **You:** FastAPI scaffold, JWT auth, all CRUD APIs (crime + cyber + new spatiotemporal/red-zone/MO endpoints), scraping engine + Celery, all ML models, network graph APIs, dashboard stats, Strategic Hub APIs, Docker Compose + Floci
+- **You:** Catalyst Functions setup, API Gateway routing, Catalyst Authentication, Zia AutoML training, AppSail setup for heavy models, Strategic Hub APIs
 - **Person 1 (Frontend):** Connect frontend to live backend APIs, verify every page, fix errors
 
 ### Day 3 — Test + Demo
-- **You:** Full smoke test all endpoints, fresh Docker deploy, README updates
+- **You:** Full smoke test deployed Catalyst app, final Data Store seeding, README updates
 - **Person 1 (Frontend):** UI polish, responsive fixes, demo walkthrough recording
 
 ## Team

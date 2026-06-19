@@ -104,24 +104,22 @@ Everything above plus user management, role assignment, and system configuration
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack (Zoho Catalyst Native)
 
 | Layer | Technology | Purpose |
 |---|---|---|
-| **Frontend** | React 19 + TypeScript + Vite + Tailwind CSS 4 | Modern, fast UI framework |
+| **Frontend Hosting** | Catalyst Slate | Auto-deploying React 19 + Vite SPA with free SSL |
+| **Frontend UI** | React 19 + TypeScript + Tailwind CSS 4 | Modern, fast UI framework |
 | **Animations** | anime.js | Page transitions, ring nav animation, hover effects |
-| **Maps** | Leaflet + React-Leaflet + Leaflet.heat | Geospatial crime hotspot visualization |
-| **Graphs** | Cytoscape.js + React Flow (xyflow) | Criminal network + drag-drop graph editor |
-| **Charts** | Recharts | Trend lines, district drilldown, cyber incident charts |
-| **Backend** | Python FastAPI + Uvicorn | REST API with auto-generated OpenAPI docs |
-| **ML/AI** | scikit-learn (Random Forest, DBSCAN, Isolation Forest) | Risk scoring, clustering, anomaly detection |
-| **Cyber Intel** | Python `whois`, `dnspython`, `ipinfo`, `pyshark` | IP geolocation, DNS/WHOIS lookups, PCAP parsing |
-| **OSINT** | BeautifulSoup4 + Playwright | Static & dynamic web scraping for crime news |
-| **Task Queue** | Celery + Redis | Async web scraping, IP enrichment, model training |
-| **Database** | PostgreSQL 16 + PostGIS 3.4 | Crime data with spatial query support |
-| **File Storage** | Floci (Local AWS Emulator — S3-compatible) | Uploaded CSV/image/PCAP storage (no AWS account needed) |
-| **Auth** | JWT (python-jose + passlib + bcrypt) | Role-based access control (Admin / Sudo / User) |
-| **Infrastructure** | Docker Compose | Single-command local deployment |
+| **Maps & Graphs** | Leaflet + React-Leaflet + Cytoscape.js + React Flow | Hotspots, Criminal networks, Cyber flows, Intel graph |
+| **Backend API** | Catalyst Functions (Advanced I/O) | Serverless Python endpoints replacing FastAPI |
+| **Database** | Catalyst Data Store (ZCQL) | Relational crime data |
+| **Heavy Compute**| Catalyst AppSail (Docker/Flask) | Complex ML models (ARIMA, TF-IDF) and heavy processing |
+| **Machine Learning**| Zia AutoML | Automated Tabular ML (Random Forest, Isolation Forest, Logistic Regression) |
+| **Web Scraping** | Catalyst Cron + SmartBrowz | Scheduled headless browser automation |
+| **File Storage** | Catalyst Stratus | Evidence and photo object storage |
+| **Auth** | Catalyst Authentication (Embedded) | Built-in user management with custom React UI |
+| **API Gateway** | Catalyst API Gateway | Routing, CORS, and Rate Limiting |
 
 ---
 
@@ -131,67 +129,39 @@ Everything above plus user management, role assignment, and system configuration
 ┌─────────────────────────────────────────────────────────────────┐
 │                        User Browser                              │
 │            React 19 + TypeScript + Tailwind + anime.js            │
+│            Hosted on: Zoho Catalyst Slate                        │
 │                                                                   │
 │  ┌─ KSP Header Bar ──────────────────────────────────────────┐  │
 │  │ KSP Logo  |  CM Photo + Name  |  Dy CM Photo + Name       │  │
 │  └────────────────────────────────────────────────────────────┘  │
-│  ┌─ Section Nav (anime.js animated) ─────────────────────────┐  │
-│  │  Dashboard | Maps | Network | Intelligence | Admin         │  │
-│  └────────────────────────────────────────────────────────────┘  │
 │  ┌─ Radial Navigation (4-ring SVG menu) ────────────────────┐  │
-│  │  Gold | Teal | Purple | Red ring segments → page         │  │
-│  │  Click segment → anime.js full-page transition           │  │
-│  └────────────────────────────────────────────────────────────┘  │
-│  ┌─ Intelligence Graph (Flowsint-style React Flow) ─────────┐  │
-│  │  7 node types: IP, Name, Place, Object, How, Why, What   │  │
-│  │  Drag-drop, connect, export JSON graph                   │  │
+│  │  Click segment → anime.js transition to page             │  │
 │  └────────────────────────────────────────────────────────────┘  │
 └──────────────────────────┬──────────────────────────────────────┘
-                           │ HTTP/JSON
+                           │ HTTP/HTTPS
                            ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                   Nginx Reverse Proxy (:80)                       │
+│               Catalyst API Gateway (CORS, Routing)                │
 └──────────┬──────────────────────────────────┬───────────────────┘
            │                                  │
            ▼                                  ▼
 ┌──────────────────────────┐    ┌──────────────────────────────┐
-│    FastAPI Backend       │    │    Vite Dev Server           │
-│      port 8000           │    │      port 5173               │
+│  Catalyst Functions      │    │  Catalyst Authentication     │
+│  (Advanced I/O - Python) │    │  (Embedded UI / Web SDK)     │
 │  ┌────────────────────┐  │    └──────────────────────────────┘
-│  │  CRIME TRACK       │  │
-│  │  ─────────────     │  │
-│  │  • Crime CRUD      │  │
-│  │  • Criminals       │  │
-│  │  • OSINT Scrape    │  │
-│  │  • Network Graph   │  │
-│  │  • Hotspot ML      │  │
+│  │  CRIME TRACK API   │  │
+│  │  CYBER TRACK API   │  │
 │  └────────────────────┘  │
-│  ┌────────────────────┐  │
-│  │  CYBERCRIME TRACK  │  │
-│  │  ─────────────     │  │
-│  │  • IP/Domain APIs  │  │
-│  │  • Phishing Cases  │  │
-│  │  • Network Flow    │  │
-│  │  • Forensics       │  │
-│  │  • Threat Intel    │  │
-│  └────────────────────┘  │
-│  ┌────────────────────┐  │
-│  │  SHARED SERVICES   │  │
-│  │  • JWT Auth        │  │
-│  │  • S3 Service      │  │
-│  │  • Celery Client   │  │
-│  │  • ML Engine       │  │
-│  └────────────────────┘  │
-└──────────────────────────┘
+└──────────┬───────────────┘
            │
-    ┌──────┼──────────────┬──────────────┐
-    ▼      ▼              ▼              ▼
-┌────────┐ ┌────────┐ ┌────────┐ ┌──────────────┐
-│PostGIS │ │ Floci  │ │ Redis  │ │  Celery       │
-│ :5432  │ │ S3     │ │ :6379  │ │  Workers      │
-│        │ │ :4566  │ │        │ │ (scrape + ML  │
-└────────┘ └────────┘ └────────┘ │  + enrichment)│
-                                 └──────────────┘
+    ┌──────┼──────────────┬──────────────┬──────────────┐
+    ▼      ▼              ▼              ▼              ▼
+┌────────┐ ┌────────┐ ┌────────┐ ┌──────────────┐ ┌──────────────┐
+│Catalyst│ │Catalyst│ │Catalyst│ │ Catalyst Cron│ │ Zia AutoML   │
+│ Data   │ │ Stratus│ │ AppSail│ │ + SmartBrowz │ │ (RF, IF, LR) │
+│ Store  │ │ (S3)   │ │(Docker)│ │ (Scraping)   │ │              │
+│ (ZCQL) │ │        │ │        │ │              │ │              │
+└────────┘ └────────┘ └────────┘ └──────────────┘ └──────────────┘
 ```
 
 **Data Flow:**
@@ -200,19 +170,18 @@ Everything above plus user management, role assignment, and system configuration
 ┌───────────────────────┐    ┌───────────────────────────┐
 │   CRIME PIPELINE      │    │   CYBERCRIME PIPELINE      │
 │                       │    │                            │
-│ File Upload / Scrape  │    │ Manual Entry / IP Lookup   │
+│ Cron + SmartBrowz     │    │ Manual Entry / IP Lookup   │
 │   ↓                   │    │   ↓                        │
-│ Floci S3 → Parse      │    │ Floci S3 → Enrich          │
-│   ↓                   │    │ (WHOIS, DNS, IPinfo)       │
-│ PostgreSQL + PostGIS  │    │   ↓                        │
-│   ↓                   │    │ PostgreSQL                 │
-│ ML: DBSCAN, RF, IF   │    │   ↓                        │
-│   ↓                   │    │ ML: Anomaly, Correlate     │
+│ Catalyst Stratus      │    │ Functions (Enrichment)     │
+│   ↓                   │    │   ↓                        │
+│ Catalyst Data Store   │    │ Catalyst Data Store        │
+│   ↓                   │    │   ↓                        │
+│ Zia AutoML (Risk, Anomaly) │ Zia AutoML (Phishing)    │
 └───────┬───────────────┘    └───────────┬───────────────┘
         │                                │
         └────────────┬───────────────────┘
                      ▼
-           FastAPI → JSON → React
+           Catalyst Functions → JSON → React (Slate)
          Unified Dashboard + Drill-down (AI-enriched everywhere)
 ```
 
@@ -222,23 +191,34 @@ Everything above plus user management, role assignment, and system configuration
 
 ### Prerequisites
 
-- [Docker](https://docs.docker.com/get-docker/) (v24+)
-- [Docker Compose](https://docs.docker.com/compose/install/) (v2.20+)
+- [Node.js](https://nodejs.org/) (v20+)
+- [Catalyst CLI](https://docs.catalyst.zoho.com/en/cli/v1/install/) (`npm install -g zcatalyst-cli`)
+- Zoho Catalyst Account
 - Git
 
-### Quick Start
+### Quick Start (Local Frontend Dev)
 
 ```bash
 # 1. Clone the repository
 git clone https://github.com/ADITYA02NM/Datathon-2026-ULTRON.git
-cd Datathon-2026-ULTRON
+cd Datathon-2026-ULTRON/Frontend\(OC.1\)
 
-# 2. Start everything (PostgreSQL, Redis, Floci, Backend, Frontend)
-docker compose up -d
+# 2. Install dependencies & run
+npm install
+npm run dev
 
-# 3. Access the platform
-Frontend: http://localhost:5173
-API Docs: http://localhost:8000/docs
+# 3. Access the frontend
+http://localhost:5173
+```
+
+### Deploy to Zoho Catalyst
+
+```bash
+# 1. Login to Catalyst
+catalyst login
+
+# 2. Deploy the application
+catalyst deploy
 ```
 
 ### Default Login Credentials
