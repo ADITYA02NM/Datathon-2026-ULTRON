@@ -1,139 +1,159 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Header } from '@/components/layout/Header';
-import { SectionNav } from '@/components/layout/SectionNav';
-import { RadialNav } from '@/components/layout/RadialNav';
-import { DashboardPage } from '@/components/pages/DashboardPage';
-import { MapsPage } from '@/components/pages/MapsPage';
-import { NetworkPage } from '@/components/pages/NetworkPage';
-import { IntelligencePage } from '@/components/pages/IntelligencePage';
-import { AdminPage } from '@/components/pages/AdminPage';
-import { useNavStore } from '@/stores/navStore';
-import { useAuthStore } from '@/stores/authStore';
-import { useCrimeStore } from '@/stores/crimeStore';
-import Papa from 'papaparse';
-// @ts-ignore
-import anime from 'animejs';
-import { LogOut } from 'lucide-react';
+import { LogOut, BarChart3, Map, Users, Brain, Shield } from 'lucide-react';
 
 export default function Home() {
-  const { activeSection, setActiveSection } = useNavStore();
-  const { isAuthenticated, login, logout, user } = useAuthStore();
-  const { crimes, criminals, districts, setCrimes, setCriminals, setDistricts, setLoaded } = useCrimeStore();
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
 
-  // Load CSV data
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        // Load crime records
-        const crimesRes = await fetch('/data/crime_records.csv');
-        const crimesText = await crimesRes.text();
-        const crimesData = Papa.parse(crimesText, { header: true }).data as any[];
-        setCrimes(crimesData.filter((c) => c.FIR_No) as any);
-
-        // Load criminals
-        const criminalsRes = await fetch('/data/criminals.csv');
-        const criminalsText = await criminalsRes.text();
-        const criminalsData = Papa.parse(criminalsText, { header: true }).data as any[];
-        setCriminals(criminalsData.filter((c) => c.Criminal_ID).map((c) => ({
-          ...c,
-          Crime_Count: parseInt(c.Crime_Count) || 0,
-          Risk_Score: parseInt(c.Risk_Score) || 0,
-        })) as any);
-
-        // Load districts
-        const districtsRes = await fetch('/data/districts.csv');
-        const districtsText = await districtsRes.text();
-        const districtsData = Papa.parse(districtsText, { header: true }).data as any[];
-        setDistricts(districtsData.filter((d) => d.District_Name).map((d) => ({
-          ...d,
-          Crime_Rate: parseFloat(d.Crime_Rate) || 0,
-          Literacy_Rate: parseFloat(d.Literacy_Rate) || 0,
-          Poverty_Index: parseFloat(d.Poverty_Index) || 0,
-          Population_Density: parseInt(d.Population_Density) || 0,
-          Police_Stations: parseInt(d.Police_Stations) || 0,
-          Latitude: parseFloat(d.Latitude) || 0,
-          Longitude: parseFloat(d.Longitude) || 0,
-        })) as any);
-
-        setLoaded(true);
-      } catch (error) {
-        console.error('Error loading data:', error);
-      }
-    };
-
-    loadData();
+    // Auto-login for demo
+    setIsAuthenticated(true);
   }, []);
-
-  // Handle page transitions with anime.js
-  useEffect(() => {
-    if (activeSection) {
-      setIsTransitioning(true);
-      anime({
-        targets: '.page-content',
-        opacity: [0, 1],
-        translateY: [20, 0],
-        duration: 500,
-        easing: 'easeOutExpo',
-        complete: () => setIsTransitioning(false),
-      });
-    }
-  }, [activeSection]);
-
-  // Auto-login for demo
-  useEffect(() => {
-    if (!isAuthenticated) {
-      login('admin@ultron.ksp', 'admin123');
-    }
-  }, []);
-
-  const renderPage = () => {
-    switch (activeSection) {
-      case 'dashboard':
-        return <DashboardPage />;
-      case 'maps':
-        return <MapsPage />;
-      case 'network':
-        return <NetworkPage />;
-      case 'intelligence':
-        return <IntelligencePage />;
-      case 'admin':
-        return <AdminPage />;
-      default:
-        return <RadialNav />;
-    }
-  };
 
   return (
-    <div className="flex flex-col h-screen bg-[#0a0e1a]">
+    <div className="flex flex-col h-screen bg-[#0a0e1a] text-[#f1f5f9]">
       {/* Header */}
-      <Header />
-
-      {/* Section Nav */}
-      <SectionNav />
-
-      {/* Main Content */}
-      <div className="flex-1 overflow-auto bg-[#0a0e1a]">
-        <div className="page-content">
-          {renderPage()}
+      <header className="border-b border-[#2a2a3a] bg-[#111827]/50 backdrop-blur px-8 py-4">
+        <div className="flex items-center justify-between max-w-full">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded bg-gradient-to-br from-[#ff6b4a] to-[#f0b000] flex items-center justify-center">
+              <Shield className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h1 className="text-lg font-bold text-[#f1f5f9]">ULTRON</h1>
+              <p className="text-xs text-[#94a3b8]">Karnataka State Police</p>
+            </div>
+          </div>
+          <div className="text-sm text-[#94a3b8]">AI-Driven Crime Analytics Platform</div>
         </div>
+      </header>
+
+      {/* Main Navigation */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Sidebar Navigation */}
+        <nav className="w-64 border-r border-[#2a2a3a] bg-[#111827]/30 backdrop-blur p-6 overflow-y-auto">
+          <div className="space-y-3">
+            <button
+              onClick={() => setActiveSection(null)}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                !activeSection
+                  ? 'bg-[#f0b000]/20 text-[#f0b000]'
+                  : 'text-[#94a3b8] hover:bg-[#2a2a3a]'
+              }`}
+            >
+              <BarChart3 className="w-5 h-5" />
+              Dashboard
+            </button>
+            <button
+              onClick={() => setActiveSection('maps')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                activeSection === 'maps'
+                  ? 'bg-[#f0b000]/20 text-[#f0b000]'
+                  : 'text-[#94a3b8] hover:bg-[#2a2a3a]'
+              }`}
+            >
+              <Map className="w-5 h-5" />
+              Geographic Mapping
+            </button>
+            <button
+              onClick={() => setActiveSection('network')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                activeSection === 'network'
+                  ? 'bg-[#f0b000]/20 text-[#f0b000]'
+                  : 'text-[#94a3b8] hover:bg-[#2a2a3a]'
+              }`}
+            >
+              <Users className="w-5 h-5" />
+              Criminal Network
+            </button>
+            <button
+              onClick={() => setActiveSection('intelligence')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                activeSection === 'intelligence'
+                  ? 'bg-[#f0b000]/20 text-[#f0b000]'
+                  : 'text-[#94a3b8] hover:bg-[#2a2a3a]'
+              }`}
+            >
+              <Brain className="w-5 h-5" />
+              Intelligence Graph
+            </button>
+            <button
+              onClick={() => setActiveSection('admin')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                activeSection === 'admin'
+                  ? 'bg-[#f0b000]/20 text-[#f0b000]'
+                  : 'text-[#94a3b8] hover:bg-[#2a2a3a]'
+              }`}
+            >
+              <Shield className="w-5 h-5" />
+              Admin Management
+            </button>
+          </div>
+        </nav>
+
+        {/* Main Content Area */}
+        <main className="flex-1 overflow-auto">
+          {!activeSection && (
+            <div className="h-full flex items-center justify-center">
+              <div className="text-center space-y-8">
+                <div>
+                  <h2 className="text-4xl font-bold text-[#f1f5f9] mb-2">ULTRON</h2>
+                  <p className="text-lg text-[#94a3b8]">AI-Driven Crime Analytics Platform</p>
+                </div>
+                <div className="grid grid-cols-3 gap-6 mt-12">
+                  <div className="space-y-2 p-6 rounded-lg bg-[#111827]/50 border border-[#2a2a3a] hover:border-[#f0b000]/50 cursor-pointer transition-all" onClick={() => setActiveSection(null)}>
+                    <BarChart3 className="w-10 h-10 text-[#f0b000] mx-auto" />
+                    <p className="font-semibold text-[#f1f5f9]">Dashboard</p>
+                    <p className="text-xs text-[#94a3b8]">Real-time crime analytics</p>
+                  </div>
+                  <div className="space-y-2 p-6 rounded-lg bg-[#111827]/50 border border-[#2a2a3a] hover:border-[#f0b000]/50 cursor-pointer transition-all" onClick={() => setActiveSection('maps')}>
+                    <Map className="w-10 h-10 text-[#f0b000] mx-auto" />
+                    <p className="font-semibold text-[#f1f5f9]">Maps</p>
+                    <p className="text-xs text-[#94a3b8]">Geographic visualization</p>
+                  </div>
+                  <div className="space-y-2 p-6 rounded-lg bg-[#111827]/50 border border-[#2a2a3a] hover:border-[#f0b000]/50 cursor-pointer transition-all" onClick={() => setActiveSection('network')}>
+                    <Users className="w-10 h-10 text-[#f0b000] mx-auto" />
+                    <p className="font-semibold text-[#f1f5f9]">Network</p>
+                    <p className="text-xs text-[#94a3b8]">Criminal relationships</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeSection && (
+            <div className="p-8">
+              <h3 className="text-2xl font-bold text-[#f1f5f9] mb-6">
+                {activeSection === 'maps' && 'Geographic Mapping'}
+                {activeSection === 'network' && 'Criminal Network Analysis'}
+                {activeSection === 'intelligence' && 'Intelligence Graph'}
+                {activeSection === 'admin' && 'Admin Management'}
+              </h3>
+              <div className="p-8 rounded-lg bg-[#111827]/50 border border-[#2a2a3a]">
+                <p className="text-[#94a3b8]">
+                  {activeSection === 'maps' && 'Geographic mapping and crime hotspot visualization will be displayed here.'}
+                  {activeSection === 'network' && 'Criminal network graph and relationship analysis will be displayed here.'}
+                  {activeSection === 'intelligence' && 'Intelligence graph editor and analysis tools will be displayed here.'}
+                  {activeSection === 'admin' && 'Admin dashboard with user and system management will be displayed here.'}
+                </p>
+              </div>
+            </div>
+          )}
+        </main>
       </div>
 
-      {/* Floating Logout Button (bottom-right) */}
+      {/* Floating User Info */}
       {isAuthenticated && (
         <div className="fixed bottom-6 right-6 flex flex-col items-end gap-2">
           <div className="rounded-lg border border-[#2a2a3a] bg-[#111827]/80 backdrop-blur px-4 py-2">
             <p className="text-xs text-[#94a3b8]">Logged in as</p>
-            <p className="text-sm font-semibold text-[#f1f5f9]">{user?.email}</p>
-            <p className="text-xs text-[#f0b000] font-medium">{user?.role}</p>
+            <p className="text-sm font-semibold text-[#f1f5f9]">admin@ultron.ksp</p>
+            <p className="text-xs text-[#f0b000] font-medium">Administrator</p>
           </div>
           <button
-            onClick={() => {
-              logout();
-              setActiveSection(null);
-            }}
+            onClick={() => setIsAuthenticated(false)}
             className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#c02040] hover:bg-[#a01830] text-white text-sm font-medium transition-colors"
           >
             <LogOut className="w-4 h-4" />
