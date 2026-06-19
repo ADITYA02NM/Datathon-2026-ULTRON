@@ -1,0 +1,31 @@
+FIR_No,District,UnitName,Crime_Head,Date,Time,Latitude,Longitude,Status,Criminal_Name,Victim_Name,MO_Description
+KSP/2025/001,Bengaluru City,Halasuru Gate,Murder,2025-01-15,22:30,12.9716,77.5946,Under Investigation,Ravi Kumar,Prakash Singh,Stabbing with knife during robbery
+KSP/2025/002,Bengaluru Rural,Yelahanka,Theft,2025-01-16,14:15,13.1007,77.5963,Resolved,Venkatesh,M/S Gupta Stores,Breaking and entering at night
+KSP/2025/003,Mysuru,Chamaraja,Kidnapping,2025-01-17,09:45,12.2958,76.6394,Under Investigation,Suresh Reddy,Anjali Sharma,Abduction for ransom
+KSP/2025/004,Hubballi,Hubballi Central,Rape,2025-01-18,20:15,15.3647,75.1240,Registered,Unknown,Priya Desai,Night assault
+KSP/2025/005,Dharwad,Dharwad City,Dacoity,2025-01-19,18:30,15.4589,75.5941,Under Investigation,Prakash Nayak,Shopkeepers,Armed robbery of jewelry store
+KSP/2025/006,Belgaum,Belgaum Town,Theft,2025-01-20,16:45,15.8497,75.6233,Resolved,Ramesh,Private residence,Burglary of household items
+KSP/2025/007,Mangalore,Mangalore Central,Smuggling,2025-01-21,11:20,12.8628,74.8430,Registered,Imran Khan,Customs,Drug trafficking
+KSP/2025/008,Tumkur,Tumkur City,Auto Theft,2025-01-22,10:30,13.2197,77.1140,Resolved,Anil Kumar,Hari Prasad,Vehicle theft from parking
+KSP/2025/009,Hassan,Hassan City,Murder,2025-01-23,23:10,13.9981,75.9611,Under Investigation,Srinivas,Deepak Patel,Stabbing over property dispute
+KSP/2025/010,Kolar,Kolar City,Chain Snatching,2025-01-24,14:20,13.1428,78.1302,Registered,Gopal,Multiple victims,Street robbery
+KSP/2025/011,Bengaluru City,Koramangala,Pickpocketing,2025-01-25,12:30,12.9352,77.6245,Resolved,Vinay,Tourists,Theft from crowded market
+KSP/2025/012,Bengaluru Rural,Electronics City,Theft,2025-01-26,08:15,12.8469,77.6765,Registered,Ravi,IT Company,Office break-in
+KSP/2025/013,Mysuru,Mysuru Palace,Robbery,2025-01-27,19:45,12.2948,76.6419,Under Investigation,Kumar,Jeweler,Armed assault and robbery
+KSP/2025/014,Hubballi,Navanagar,Assault,2025-01-28,21:00,15.3761,75.0941,Registered,Rajesh,Singh Brothers,Gang fight over territory
+KSP/2025/015,Dharwad,Old Market,Cybercrime,2025-01-29,09:30,15.4567,75.5987,Registered,Online Scammer,Entrepreneurs,Online fraud scheme
+KSP/2025/016,Belgaum,Belgaum Rural,Burglary,2025-01-30,02:45,15.8234,75.6734,Resolved,Sekhar,Farmer,Night time house robbery
+KSP/2025/017,Mangalore,Bunts Hostel,Ragging,2025-01-31,18:20,12.8934,74.8567,Registered,College Students,New Students,Physical and mental harassment
+KSP/2025/018,Tumkur,Industrial Area,Industrial Theft,2025-02-01,05:30,13.2456,77.1234,Registered,Subramanyam,Factory,Equipment theft from plant
+KSP/2025/019,Hassan,Hassan Rural,Cattle Theft,2025-02-02,03:00,13.9876,75.9234,Resolved,Lokesh,Farmers,Livestock theft
+KSP/2025/020,Kolar,Gold Industry,Gold Smuggling,2025-02-03,16:45,13.1234,78.1456,Registered,Sharma,Dealers,Illegal gold movement
+KSP/2025/021,Bengaluru City,MG Road,Robbery,2025-02-04,20:15,12.9689,77.6009,Under Investigation,Anil,Businessman,Wallet and watch theft
+KSP/2025/022,Bengaluru Rural,Whitefield,Fraud,2025-02-05,14:30,13.0186,77.6991,Registered,Vishwanath,Citizens,Financial fraud scheme
+KSP/2025/023,Mysuru,Vishveshvarayya Indl Area,Theft,2025-02-06,10:45,12.3056,76.6123,Resolved,Murthy,Factory,Industrial equipment theft
+KSP/2025/024,Hubballi,Railway Station,Pickpocketing,2025-02-07,09:20,15.3758,75.0934,Registered,Siddhi,Commuters,Theft at public place
+KSP/2025/025,Dharwad,Bus Stand,Chain Snatching,2025-02-08,15:10,15.4890,75.5678,Resolved,Vikram,Commuters,Robbery from travellers
+KSP/2025/026,Belgaum,Cotton Market,Robbery,2025-02-09,17:45,15.8567,75.6189,Under Investigation,Dilip,Traders,Armed assault on merchants
+KSP/2025/027,Mangalore,Falnir,Drug Peddling,2025-02-10,22:30,12.9156,74.8234,Registered,Hassan,Community,Illegal drug distribution
+KSP/2025/028,Tumkur,Sira Road,Hit and Run,2025-02-11,23:45,13.1876,77.1234,Registered,Unknown,Pedestrian,Vehicle accident and escape
+KSP/2025/029,Hassan,Hassan Market,Assault,2025-02-12,18:00,14.0234,75.9876,Resolved,Ravi,Shopkeeper,Physical altercation
+KSP/2025/030,Kolar,Kolar Gold Fields,Mining Accident,2025-02-13,07:30,13.0987,78.1567,Registered,Workers,Workers,Workplace injury incident
