@@ -80,6 +80,15 @@
 
 ---
 
+## 2026-06-16 23:45
+**Author:** OpenCode (Build mode)
+**Files changed:**
+- Deleted `Frontend(OC.1)/` entirely (35 files) — full Vite+React 19 project scaffold, all pages, components, stores, types, CSV data, config
+**Reason:** User decided the built frontend was bad and requested deletion
+**Status:** Done
+
+---
+
 ## 2026-06-16 23:30
 **Author:** OpenCode (Build mode)
 **Files changed:**
