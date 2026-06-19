@@ -106,7 +106,20 @@ User Browser → Nginx → FastAPI Backend
 
 ---
 
-## Slide 8 — Demo: Crime Track
+## Slide 8 — Interactive UI & Navigation
+**Title:** Immersive Command Center Interface
+**Content:**
+- **KSP Branded Header:** Official Karnataka State Police branding with CM and Deputy CM — reinforces government authority
+- **4-Ring Radial Navigation:** SVG circular menu with colored segments (Gold/Teal/Purple/Red) — click a segment for instant page transition via anime.js
+- **Section Nav:** Animated navigation bar with smooth sliding underline effects
+- **Flowsint-style Intel Graph:** Drag-drop node investigation editor with 7 node types (IP, Name, Place, Object, How, Why, What) — connect nodes to build crime relationships
+- **Full-page transitions:** anime.js powers all page changes — smooth, fast, professional
+
+**Visual:** Mockup screenshot showing the radial navigation interface with KSP header
+
+---
+
+## Slide 9 — Demo: Crime Track
 **Title:** See It in Action — Crime Intelligence
 **Content (bullet points with mock screenshot placeholders):**
 - **Command Dashboard:** Live KPI counters, real-time crime feed, 30-day trend charts
@@ -118,7 +131,19 @@ User Browser → Nginx → FastAPI Backend
 
 ---
 
-## Slide 9 — Demo: CyberCrime Track
+## Slide 10 — Demo: CyberCrime Track
+**Title:** See It in Action — Crime Intelligence
+**Content (bullet points with mock screenshot placeholders):**
+- **Command Dashboard:** Live KPI counters, real-time crime feed, 30-day trend charts
+- **Crime Heatmap:** Full Karnataka map with DBSCAN hotspot overlays — click any pin for case details
+- **Criminal Network Graph:** Interactive Cytoscape visualization linking criminals by associates, locations, and MO
+- **AI Alerts:** Anomaly detection flags unusual crime surges per district
+
+**Visual:** Mock UI screenshot or wireframe showing the dashboard with map and charts.
+
+---
+
+## Slide 10 — Demo: CyberCrime Track
 **Title:** See It in Action — Cyber Forensics
 **Content (bullet points with mock screenshot placeholders):**
 - **IP Tracker:** Geolocate, identify ISP, check reputation — all in one search
@@ -130,7 +155,7 @@ User Browser → Nginx → FastAPI Backend
 
 ---
 
-## Slide 10 — Roadmap & Conclusion
+## Slide 11 — Roadmap & Conclusion
 **Title:** The Future of Policing Starts Here
 **Two-column layout:**
 

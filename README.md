@@ -65,10 +65,12 @@ All 7 models run on **Celery workers**, update automatically on schedule, and ca
 
 ### 🚔 Crime (OSINT + Tracking + Records + Intelligence)
 
-AI-powered crime intelligence for the SCRB, built around 6 core capabilities defined by the Karnataka State Police.
+AI-powered crime intelligence for the SCRB, built around 6 core capabilities defined by the Karnataka State Police. The frontend is a **single dynamic page** with an immersive radial navigation interface.
 
 | Feature | What It Does | Source Capability |
 |---|---|---|
+| 🌀 **4-Ring Radial Navigation** | The landing interface — four concentric ring segments (Gold/Teal/Purple/Red) in an SVG circle. Click a ring to instantly transition to Dashboard, Maps, Network, or Intelligence pages via anime.js animations. Inspired by modern command center UIs. | UX |
+| 🏛️ **KSP Branded Header** | Top bar showing Karnataka State Police logo alongside Chief Minister and Deputy Chief Minister framed photos — reinforcing the official government context. | UX |
 | 🗺️ **Advanced Visualization — Spatiotemporal Clusters** | Full-screen Leaflet map of Karnataka with DBSCAN-based hotspot overlays. Clusters are **spatiotemporal** — they show crime patterns by location AND time (e.g., "chain snatching spikes in this area on weekends"). Click any pin or cluster for detail. | #1 Advanced Visualization |
 | 🔍 **District Drill-Down** | Click any district on the map → see its crime stats, trend charts, hotspot clusters, and breakdown by crime type. Compare across districts. | #1 Advanced Visualization |
 | 🚨 **Emerging Trend Alerts (Red-Zone Pulsing)** | When a district's crime rate spikes beyond its normal pattern, the district **glows red and pulses** on the map. Anomaly detection (Isolation Forest) powers this — quiet areas trigger earlier than busy ones. | #1 Advanced Visualization |
@@ -106,9 +108,10 @@ Everything above plus user management, role assignment, and system configuration
 
 | Layer | Technology | Purpose |
 |---|---|---|
-| **Frontend** | React 18 + TypeScript + Vite + Tailwind CSS 3 | Modern, fast UI framework |
+| **Frontend** | React 19 + TypeScript + Vite + Tailwind CSS 4 | Modern, fast UI framework |
+| **Animations** | anime.js | Page transitions, ring nav animation, hover effects |
 | **Maps** | Leaflet + React-Leaflet + Leaflet.heat | Geospatial crime hotspot visualization |
-| **Graphs** | Cytoscape.js | Criminal network & cyber attack path visualization |
+| **Graphs** | Cytoscape.js + React Flow (xyflow) | Criminal network + drag-drop graph editor |
 | **Charts** | Recharts | Trend lines, district drilldown, cyber incident charts |
 | **Backend** | Python FastAPI + Uvicorn | REST API with auto-generated OpenAPI docs |
 | **ML/AI** | scikit-learn (Random Forest, DBSCAN, Isolation Forest) | Risk scoring, clustering, anomaly detection |
@@ -127,8 +130,22 @@ Everything above plus user management, role assignment, and system configuration
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        User Browser                              │
-│            React + TypeScript + Tailwind + Leaflet                │
-│         Crime Views  |  CyberCrime Views  |  Dashboard            │
+│            React 19 + TypeScript + Tailwind + anime.js            │
+│                                                                   │
+│  ┌─ KSP Header Bar ──────────────────────────────────────────┐  │
+│  │ KSP Logo  |  CM Photo + Name  |  Dy CM Photo + Name       │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│  ┌─ Section Nav (anime.js animated) ─────────────────────────┐  │
+│  │  Dashboard | Maps | Network | Intelligence | Admin         │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│  ┌─ Radial Navigation (4-ring SVG menu) ────────────────────┐  │
+│  │  Gold | Teal | Purple | Red ring segments → page         │  │
+│  │  Click segment → anime.js full-page transition           │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│  ┌─ Intelligence Graph (Flowsint-style React Flow) ─────────┐  │
+│  │  7 node types: IP, Name, Place, Object, How, Why, What   │  │
+│  │  Drag-drop, connect, export JSON graph                   │  │
+│  └────────────────────────────────────────────────────────────┘  │
 └──────────────────────────┬──────────────────────────────────────┘
                            │ HTTP/JSON
                            ▼

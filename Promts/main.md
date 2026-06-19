@@ -65,13 +65,20 @@ Advanced cybercrime investigation with digital trail tracking:
 ## Architecture
 
 ```
-User Browser (React + TypeScript + Tailwind)
-  └── Nginx Reverse Proxy (:80)
-        ├── FastAPI Backend (:8000)
-        │   ├── Crime Track (Crime CRUD, Criminals, OSINT Scrape, Network Graph, Hotspot ML)
-        │   ├── CyberCrime Track (IP/Domain APIs, Phishing Cases, Network Flow, Forensics, Threat Intel)
-        │   └── Shared Services (JWT Auth, S3 Service, Celery Client, ML Engine)
-        └── Vite Dev Server (:5173)
+User Browser (React 19 + TypeScript + Tailwind + anime.js + React Flow)
+  ├── KSP Header Bar (Logo | CM | Dy CM)
+  ├── Section Nav (anime.js animated tabs)
+  ├── 4-Ring Radial Navigation (SVG circle — gold/teal/purple/red segments)
+  │   └── Click segment → anime.js full-page transition
+  ├── Pages: Dashboard, Maps, Network, Intelligence, Admin
+  └── Intel Graph (Flowsint-style React Flow editor — 7 node types)
+
+All → Nginx Reverse Proxy (:80)
+      ├── FastAPI Backend (:8000)
+      │   ├── Crime Track (Crime CRUD, Criminals, OSINT Scrape, Network Graph, Hotspot ML)
+      │   ├── CyberCrime Track (IP/Domain APIs, Phishing Cases, Network Flow, Forensics, Threat Intel)
+      │   └── Shared Services (JWT Auth, S3 Service, Celery Client, ML Engine)
+      └── Vite Dev Server (:5173)
 
 Backend connects to:
   ├── PostgreSQL 16 + PostGIS 3.4 (:5432)
@@ -221,8 +228,8 @@ ULTRON/
 ## 3-Day Execution Plan
 
 ### Day 1 — Design + Architecture + Frontend
-- **You:** Architecture design, all DB models, Docker skeleton, seed scripts, API contract shapes (including new: spatiotemporal hotspots, red-zone alerts, MO matching, socio-economic overlays, Strategic Hub)
-- **Person 1 (Frontend):** ALL frontend pages + components — including new Strategic Intelligence Hub, red-zone pulsing map, MO tracking panel, socio-economic overlay controls, plus all crime/cyber/analysis/data/admin pages
+- **You:** Architecture design, all DB models, Docker skeleton, seed scripts, API contract shapes
+- **Person 1 (Frontend):** Single dynamic page: KSP Header (logo + CM + Dy CM) → Section Nav (anime.js) → 4-Ring Radial Navigation (SVG gold/teal/purple/red) → full-page transitions to Dashboard | Maps | Network | Intel. Flowsint-style Intel Graph (React Flow, 7 nodes: IP/Name/Place/Object/How/Why/What). All crime/cyber/analysis/data/admin features. Dummy SCRB CSV data.
 
 ### Day 2 — Backend + Verify + Deploy + Setup
 - **You:** FastAPI scaffold, JWT auth, all CRUD APIs (crime + cyber + new spatiotemporal/red-zone/MO endpoints), scraping engine + Celery, all ML models, network graph APIs, dashboard stats, Strategic Hub APIs, Docker Compose + Floci

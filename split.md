@@ -57,13 +57,13 @@
 #### Person 1 (Frontend)
 | Time | Task | Files |
 |---|---|---|
-| 1h | Vite + React + Tailwind scaffold, routing, auth context, layout shell (sidebar, header, protected route) — SCRB branding | `App.tsx`, `pages/*`, `components/layout/*`, `context/auth.tsx` |
-| 1h | Login page + Dashboard (KPI cards, trend chart, anomaly alert panel, red-zone pulse indicator) | `pages/LoginPage.tsx`, `pages/DashboardPage.tsx`, `components/dashboard/*` |
-| 1h | **Advanced Visualization** — Crime map with spatiotemporal cluster overlays (Leaflet), district drill-down, **red-zone pulsing** on district borders when alert triggers | `components/crime/CrimeMap.tsx`, `components/crime/CrimeDetail.tsx` |
-| 1h | Crime list + detail + criminal table + **MO Pattern Tracking** panel + **Socio-Economic overlay controls** on map | `components/crime/CrimeList.tsx`, `components/crime/CriminalTable.tsx` |
-| 1h | **Strategic Intelligence Hub** page — socio-economic correlation charts, predictive heatmap, top-5 emerging trends, intelligence brief cards | `pages/IntelligenceHub.tsx`, `components/analysis/*` |
-| 1h | Cyber incident list + detail + IP Tracker + Domain Analyzer + Network Flow Graph | `components/cyber/*` |
-| 0.5h | Data upload (file, scrape, manual) + Admin page + loading/error states | `components/data/*`, `pages/AdminPage.tsx` |
+| 1h | Vite + React + Tailwind scaffold, routing, Zustand stores | `App.tsx`, `pages/*`, `stores/*` |
+| 1h | **KSP Header Bar** (KSP logo + CM + Dy CM photos) + **Section Nav** with anime.js underline animation | `components/layout/KSPHeader.tsx`, `components/layout/SectionNav.tsx` |
+| 2h | **4-Ring Radial Navigation** — SVG circular menu with 4 colored segments (Gold `#f0b000`, Teal `#20a080`, Purple `#800060`, Red `#c02040`). Anime.js entrance animation and on-click full-page transitions to Dashboard/Maps/Network/Intel sections | `components/layout/RadialNav.tsx` |
+| 1h | Dashboard page + Maps page with Leaflet map of Karnataka | `pages/DashboardPage.tsx`, `pages/MapsPage.tsx`, `components/map/*` |
+| 1h | Network page (Cytoscape graph) + Intelligence page (predictive charts, briefs) | `pages/NetworkPage.tsx`, `pages/IntelligencePage.tsx` |
+| 2h | **Flowsint-style Intel Graph Page** — React Flow (xyflow) drag-drop node editor with 7 pre-defined node types: IP (cyan), Name (red), Place (green), Object (orange), How (purple), Why (pink), What (yellow). Connect nodes, editable fields, export JSON. Uses `@xyflow/react`. | `components/intelgraph/*`, `pages/IntelGraphPage.tsx` |
+| 1h | Dummy data — CSV files in `public/data/` with real SCRB format: `crime_records.csv` (500+ FIR records), `criminals.csv`, `cyber_incidents.csv`. Parsed via `papaparse`. | `public/data/*.csv`, `hooks/useCSVData.ts` |
 
 **Definition of Done:** All frontend pages render with mock data — including new Strategic Hub, red-zone pulses, MO tracking, socio-economic overlays. Cyber pages intact.
 

@@ -1,271 +1,424 @@
-# ULTRON — Frontend Prompt for v0.app (v0.dev)
+# ULTRON — Frontend Prompt for v0.dev (v0.app)
 
-## Important: Reference Projects
+## Project Overview
+ULTRON is an AI-Driven Crime Analytics Platform for the Karnataka State Police SCRB Datathon 2026. This is a **single dynamic page** React app with an immersive radial navigation interface, anime.js transitions, a Flowsint-style drag-drop graph editor, and dummy data in real SCRB CSV format.
 
-Study these two projects carefully before generating code:
-
-### Reference 1: Flowsint (Graph Investigation UI)
-**GitHub:** https://github.com/reconurge/flowsint
-**Local copy:** /home/ego/Documents/flowsint
-
-Flowsint is an OSINT graph exploration tool. Key UI/UX patterns to replicate:
-- **Dark theme** with professional blue/gray color palette
-- **Flow/network graph** as central interaction paradigm (similar to @xyflow/react / React Flow)
-- **Sidebar** with investigation selectors, tool panels, and node lists
-- **Command palette** (cmdk-style) for quick actions
-- **Bottom log panel** showing real-time activity
-- **Clean, minimal card layouts** for data display
-- **Loading states** with subtle animations
-- Use Radix UI primitives for accessibility
-- shadcn/ui component styling patterns
-- **Status bar** at bottom showing system state
-- **Resizable panels** for flexible layouts
-
-### Reference 2: WorldMonitor (Real-time Dashboard)
-**GitHub:** https://github.com/koala73/worldmonitor
-**Context:** Build for INDIA / KARNATAKA region specifically
-
-WorldMonitor is a real-time global intelligence dashboard. Key UI/UX patterns to replicate:
-- **Full-screen map** as the primary visualization layer
-- **KPI cards** at the top with live counters (total crimes, active cases, alerts today, cyber incidents)
-- **Real-time feed** sidebar showing latest events
-- **Trend charts** (Recharts) with time-series data
-- **3D/globe visualization** aesthetic — modern, dark, glowing elements
-- **Alert/anomaly panel** with severity badges
-- **Drill-down capability** — click a region to see detailed stats
-- **Responsive grid layouts** that work on different screen sizes
-
-## Tech Stack for v0.dev
-
-Generate React 19 + TypeScript + Vite + Tailwind CSS 4 code using:
-- `lucide-react` for all icons
-- `recharts` for charts (trend lines, bar charts, pie charts)
-- `leaflet` + `react-leaflet` + `leaflet.heat` for maps
-- `cytoscape` + `cytoscape-react` for network graphs
-- `@radix-ui/*` for accessible UI primitives
-- `framer-motion` for animations
-- `zod` for validation
+## Tech Stack
+- React 19 + TypeScript + Vite + Tailwind CSS v4 + shadcn/ui
+- `anime.js` for all animations (page transitions, ring nav, hover effects)
+- `leaflet` + `react-leaflet` for Karnataka maps with district boundaries
+- `cytoscape` for criminal network graphs
+- `@xyflow/react` (React Flow) for the Flowsint-style Intel Graph node editor
+- `recharts` for charts
+- `lucide-react` for icons
 - `zustand` for state management
-- `@tanstack/react-query` for data fetching
-- `sonner` for toasts/notifications
-- `tailwind-merge` + `clsx` + `class-variance-authority` for styling
-- `react-hook-form` for forms
-- Use shadcn/ui patterns for component architecture
+- `papaparse` for CSV parsing (dummy data from `public/data/`)
 
-## Pages to Generate
+## Layout Structure (Single Page)
 
-### 1. Login Page (`/login`)
-- Clean centered card with ULTRON logo/branding
-- Email + password fields
-- "Remember me" checkbox
-- Role indicator (shows Admin/Sudo/User after login)
-- Animated gradient or dark background with subtle grid pattern
-- Responsive — works on mobile
+```
+┌──────────────────────────────────────────────────────────────┐
+│  HEADER 1 — KSP Branding Bar (#0a0e1a, gold borders)       │
+│  [KSP Logo]  |  CM Photo + "Chief Minister"  |  Dy CM      │
+└──────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│  HEADER 2 — Section Nav (#111827, anime.js animated)        │
+│  Dashboard | Maps | Network | Intelligence | Admin           │
+│  ──── active underline slides with anime.js                  │
+└──────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│  CENTER — 4-Ring Radial Navigation SVG                      │
+│  (4 concentric colored ring segments)                        │
+│  Gold(#f0b000) | Teal(#20a080) | Purple(#800060) | Red(#c02040) │
+│  Click a ring → anime.js full-page transition                │
+└──────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│  PAGES LOAD HERE (anime.js transition between them)          │
+│  Dashboard → Maps → Network → Intelligence → Admin          │
+└──────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│  INTEL GRAPH (bottom section, full width)                    │
+│  Flowsint-style React Flow editor with 7 node types          │
+└──────────────────────────────────────────────────────────────┘
+```
 
-### 2. Dashboard Page (`/dashboard`)
-**WorldMonitor-inspired layout:**
-- Top row: 4-6 KPI cards with live counters (Total Crimes, Active Cases, Alerts Today, Cyber Incidents, Risk Score Avg, Hotspots Active)
-- Left panel: real-time crime + cyber feed (scrollable list)
-- Center: Leaflet map of Karnataka with crime pins and heatmap overlay
-- Right panel: anomaly alerts with severity badges and anomaly charts
-- Bottom: 30-day trend chart (Recharts line chart with dual axis for crime + cyber)
-- All data fetched via API hooks
+---
 
-### 3. Crime Page (`/crime`)
-- **Map view:** Full-screen Leaflet map of Karnataka with DBSCAN hotspot cluster overlays
-  - Click any pin → popup with crime details (type, date, status, link to detail)
-  - Hotspot polygons with density coloring (low=green, medium=yellow, high=red, extreme=purple)
-  - District boundaries overlay
-  - Filters panel: district dropdown, crime type, date range, status
-- **List view:** Table with sortable columns (ID, Type, Date, District, Status, Actions)
-  - Search bar, filter chips, pagination
-  - Click row → slide-in detail panel or modal
-- **Detail view:** Full crime record with map pin, criminal associations, evidence list, timeline
+## HEADER 1 — KSP Branding Bar
 
-### 4. Criminals Page (`/criminal`)
-- **Table view:** Searchable, filterable table of known criminals
-  - Columns: Name, Age, Risk Score (with color badge), Priors Count, Last Crime, Actions
-  - Risk score badge colors: Low=green, Medium=yellow, High=orange, Extreme=red
-  - Repeat offender badge (star icon) for 3+ priors
-- **Detail view:** Modal/slide-in with:
-  - Personal info + photo placeholder
-  - Risk score gauge/donut chart
-  - Crime history timeline
-  - Network graph (mini Cytoscape) showing criminal associates
-  - Links to associated crimes
+**Background:** `#0a0e1a` (very dark navy)  
+**Height:** ~64px  
+**Border-bottom:** 1px solid `#f0b000` (gold accent)
 
-### 5. Cyber Page (`/cyber`)
-**Flowsint-inspired layout with tabs:**
-- **Tab 1 — Incidents:** Table of cyber incidents with type, status, date, source IP, target domain
-  - Status badges: Open=yellow, Investigating=blue, Resolved=green, False Positive=gray
-  - Click for detail modal with full evidence chain
-- **Tab 2 — IP Tracker:** Search bar for IP address → displays:
-  - IP geolocation map (Leaflet pin)
-  - Info cards: ISP, ASN, Country, City, Reputation Score
-  - Linked incidents table
-  - WHOIS data
-  - Timeline of when IP appeared in cases
-- **Tab 3 — Domain Analyzer:** Search bar for domain → displays:
-  - Domain info: Registrar, Creation Date, Expiry, SSL Status
-  - DNS records table
-  - Phishing probability gauge (0-100%)
-  - Risk flags checklist
-  - Associated IPs list
-- **Tab 4 — Network Flow:** Full Cytoscape.js graph
-  - Nodes: IPs (circles), Domains (rectangles), Victims (diamonds)
-  - Edges: connections with arrow direction
-  - Color code by threat level
-  - Zoom, pan, click to highlight
-  - Search/filter nodes
+Layout (flex, space-between):
+- **Left:** Karnataka State Police logo (SVG or text "KARNATAKA STATE POLICE" in gold, small font)
+- **Center:** Two circular photo frames (40px) with name labels:
+  - CM Photo + "Chief Minister" below in gold text
+  - Deputy CM Photo + "Deputy Chief Minister" below in gold text
+- **Right:** ULTRON branding text or small emblem
 
-### 6. Network Page (`/network`)
-- **Crime Network:** Cytoscape.js graph showing criminals and their connections
-  - Nodes sized by risk score
-  - Edges colored by link type (shared location, shared crime type, known associate)
-  - Click node → highlight connected nodes, show details
-  - Legend panel
-- **Cyber Network:** Cytoscape.js graph showing IP↔domain↔victim connections
-  - Attack path highlighting
-  - Timeline slider to see how connections evolved
+---
 
-### 7. Analysis Page (`/analysis`)
-Four-panel grid layout:
-- **Hotspots panel:** Map with cluster results, cluster table with density scores, top crime types per cluster
-- **Trends panel:** Time-series charts (crimes per day/week/month, by type, by district) — Recharts
-- **Anomalies panel:** Alert cards with severity, district, type, expected vs actual counts, timestamp
-- **Correlations panel:** Bar charts showing crime vs socio-economic factors (literacy rate, population density, etc.)
+## HEADER 2 — Section Navigation
 
-### 8. Data Page (`/data`)
-- **Tab 1 — File Upload:** Drag-and-drop zone for CSV/JSON files, progress indicator, recent uploads table
-- **Tab 2 — Web Scraping:** Add source URL form, scrape schedule config, sources table with last run status
-- **Tab 3 — Manual Entry:** Form to add crime + criminal + cyber incident manually, with validation
+**Background:** `#111827`  
+**Height:** ~44px  
+**Padding:** 0 24px
 
-### 9. Admin Page (`/admin`)
-- User table with roles, status, last login
-- Role editor dropdown per user
-- System config panel (API endpoints status, model retrain button, DB stats)
+5 nav items as text buttons:
+- Dashboard | Maps | Network | Intelligence | Admin
+
+**Anime.js behavior:**
+- On load: nav items fade in sequentially (stagger: 80ms)
+- On hover: a gold underline line slides from current position to hovered item's center (anime.js `translateX` tween)
+- On click: underline locks to active item with a smooth spring animation
+- Colors: Text is `#94a3b8`, active is `#f1f5f9`, active underline is `#f0b000`
+
+---
+
+## 4-Ring Radial Navigation (CENTRAL INTERFACE)
+
+This is the **main landing view** — shown when no page section is active yet. Inspired by centre.jpeg reference image.
+
+### SVG Structure
+A circular SVG with 4 concentric ring bands, each divided into segments by angle:
+
+```
+Outer Ring (r=175-200px): Gold segment (0°-50° + 300°-360°), Teal (50°-130°), Purple (130°-240°), Red (240°-300°)
+Ring 2 (r=140-175px): Same angular segments, slightly darker/more saturated version of each color
+Ring 3 (r=60-100px): Scattered accent elements in matching segment colors
+Center (r=0-60px): Deep red core (#c6010a) with concentric band rings
+```
+
+### Colors by Segment
+| Segment | Angle Range | Color | Page Destination |
+|---|---|---|---|
+| Gold/Amber | 0°—50° + 300°—360° (top arc) | `#f0b000` | **Dashboard** |
+| Green/Teal | 50°—130° (right arc) | `#20a080` | **Maps** |
+| Purple/Magenta | 130°—240° (bottom arc) | `#800060` | **Network** |
+| Red/Pink | 240°—300° (left arc) | `#c02040` | **Intelligence** |
+
+### Interaction & Animation
+1. **On page load:** Radial navigation zooms in from center (anime.js: scale 0 → 1, 0.6s easeOutExpo). Rings appear sequentially with a stagger delay.
+2. **Hover on a segment:** That segment brightens (opacity from 0.8 → 1.0), subtle scale pulse (1.0 → 1.05)
+3. **Click a segment:**
+   - anime.js transition: current view scales down and fades (0.4s)
+   - Target page content slides in from bottom (translateY 40px → 0, opacity 0 → 1, 0.5s easeOutExpo)
+   - Section nav underline updates to active section
+4. **White annular gaps** separate the ring bands (r=100-140px between Ring 2 and Ring 3)
+
+### Bottom Arc Label
+The top arc (Gold segment) should contain a subtle title text read from the image — likely "CENTRE" or "ULTRON" in small white/semi-transparent text along the arc curve.
+
+### Static Reference
+Reference image at `centre.jpeg` shows this exact layout. Reproduce the SVG circle with 4 colored segments exactly as described above.
+
+---
+
+## PAGES (Accessed via Ring Click + Section Nav)
+
+### Dashboard Page
+- **KPI Row:** 4 glass-effect cards (Total Crimes, Solved %, Active Cases, Cyber Incidents) with Lucide icons and anime.js count-up animation on load
+- **Monthly Trend Chart:** Recharts area chart — 12 months, gradient fill (gold to transparent)
+- **Crime Type Distribution:** Recharts horizontal bar chart
+- **District Comparison:** Bar chart with top-10 districts
+- **Recent Feed:** Scrollable list with severity dots, time ago, district tags
+- All transitions use anime.js
+
+### Maps Page
+- **Full-screen Leaflet map** of Karnataka with district boundary polygons
+- Crime pins colored by type (red=violent, orange=property, blue=cyber, purple=women/child, gray=other)
+- Click district → popup with stats (name, total crimes, top crime type, trend)
+- Layer toggles: "Crime Pins" | "Heatmap" | "Districts" | "Clear"
+- Search input for FIR/location/criminal name
+- **Data loaded from CSV:** `public/data/crime_records.csv` parsed by papaparse
+
+### Network Page
+- **Cytoscape.js graph** — full screen below header
+- Nodes: Criminal (red circle, sized by crime count), Victim (blue diamond), Location (green hexagon), Crime (orange square)
+- Edges labeled by relationship type
+- Controls: search, filter by crime type, timeline slider, layout selector
+- Click node → detail popup with connection highlights
+
+### Intelligence Page
+- **Predictive Zone Map:** Small Leaflet map with risk overlay (green→red gradient)
+- **Socio-Economic Charts:** Scatter plot (crime rate vs literacy/poverty)
+- **Emerging Trends:** Top-5 fastest rising crime types with % change
+- **MO Match Alerts:** Cards showing matched MO patterns
+- **Red-Zone Districts:** Table with severity and trend
+- **Intelligence Briefs:** Auto-generated summary cards
+
+### Admin Page
+- Users table with roles
+- Role editor dropdown
+- System status panel (API health, DB, ML models)
 - Activity log
 
-### 10. Strategic Intelligence Hub (`/intelligence`)
-**Command center for senior SCRB officers:**
-- **Socio-Economic Correlation Panel:** Bar/heat charts showing crime rates vs literacy rate, poverty index, population density — toggle between factors
-- **Predictive Risk Heatmap:** Leaflet map showing tomorrow's predicted high-risk zones based on ML output
-- **Top-5 Emerging Trends:** Cards showing the fastest-rising crime types per district with % change arrows
-- **Intelligence Brief Cards:** Auto-generated summaries — "MO match detected: 3 chain-snatchings linked to same suspect"
-- **Red-Zone District Table:** List of districts currently in alert state with severity level and trend direction
+---
 
-### Map & Graph Enhancements (Apply to All Relevant Pages)
+## Intel Graph Page (Flowsint-style Node Editor)
 
-#### Leaflet Map (Crime Page, Dashboard, Intelligence Hub)
-- **District boundary polygons** — clickable → drill-down stats panel
-- **Red-zone pulsing** — when a district's Emerging Trend Alert triggers, its border glows red + pulse animation
-- **Spatiotemporal toggle** — buttons to switch between "All time" / "This week" / "This month" cluster views
-- **Socio-economic overlay dropdown** — toggle literacy/poverty/density layer on/off, overlaid as colored regions
-- **Cluster expansion** — click a hotspot → popup with crime type breakdown, time patterns, top criminals
+**Location:** Bottom section of the app, accessed via login or a dedicated sub-nav button.  
+**Layout:** Full-width React Flow canvas with left-side node palette.
 
-#### Cytoscape Network Graph (Network Page)
-- **MO match highlighting** — edges between criminals with similar MO are thicker, labeled with match percentage
-- **Timeline slider** — filter connections by date range
-- **Activity heat** — nodes glow red based on recency of criminal activity
+### Node Palette (Left Sidebar, ~220px)
+7 pre-defined node types, each with a distinct color and icon from Lucide:
 
-#### Cytoscape Cyber Flow Graph (Cyber Page Tab 4)
-- **Attack path highlighting** — shortest path between source IP and target highlighted
-- **Threat level coloring** — IP nodes colored by reputation score (green→yellow→red)
-- **Subgraph expand** — click a node → expand its immediate neighborhood
+| Node Type | Color | Icon | Description |
+|---|---|---|---|
+| `[IP]` | Cyan `#06b6d4` | `globe` | IP address node |
+| `[Name]` | Red `#ef4444` | `user` | Person name node |
+| `[Place]` | Green `#22c55e` | `map-pin` | Location node |
+| `[Object]` | Orange `#f97316` | `package` | Evidence/object node |
+| `[How]` | Purple `#a855f7` | `zap` | Method node |
+| `[Why]` | Pink `#ec4899` | `help-circle` | Motive node |
+| `[What]` | Yellow `#eab308` | `alert-triangle` | Crime type node |
 
-## Layout & Navigation
+### Canvas (Center, Dark Background)
+- Background: `#0a0e1a` with dot grid pattern
+- Drag nodes from palette onto canvas
+- Connect nodes by dragging from output handle to input handle
+- Nodes have colored borders matching their type
+- Group select, pan, zoom (all React Flow built-in)
 
-### Sidebar (Flowsint-inspired)
-- ULTRON logo + branding at top
-- Nav items with icons: Dashboard, Crime, Criminals, Cyber, Network, Analysis, Intelligence Hub, Data, Admin
-- Active state highlighting
-- Collapsible (hamburger on mobile)
-- User avatar + role badge at bottom
+### Node Detail Panel (Right Side, Slides Open on Click)
+When a node is clicked, a right panel slides in (anime.js, 0.3s easeOutExpo) showing:
+- Node type badge with color
+- Editable form fields depending on type:
+  - IP → address, ISP, geolocation, timestamp
+  - Name → full name, alias, DOB, ID proof number
+  - Place → address, lat/lng coordinates, type dropdown (residence/crime scene/meeting point)
+  - Object → description, seized from (text input), case reference number
+  - How → method description, tools used (tags input), steps
+  - Why → motive category dropdown, trigger description, background notes
+  - What → crime category dropdown, FIR number, date, status
+- Save button (stores node data in Zustand)
+- Delete node button
 
-### Top Header
-- Search bar (global search across crimes, criminals, IPs, domains)
-- Notification bell with unread count
-- User dropdown (profile, settings, logout)
-- Theme toggle (dark mode — default dark)
+### Action Bar (Top of Graph Canvas)
+- **Save Graph** — exports current node+edge state as JSON
+- **Export JSON** — downloads graph as `.json` file
+- **Clear Canvas** — confirmation dialog then clears all nodes
+- **Load Template** — loads a pre-built sample investigation graph
 
-## Visual Design Requirements
+### Bottom Bar
+- Auto-generated report preview — text summary that updates as nodes connect (e.g., "IP 192.168.1.1 → connected to Suspect Name → via Phishing Method")
+- Node count / edge count display
 
-### Color Palette (Dark Theme)
-- Background: `#0a0a0f` (very dark navy)
-- Surface: `#13131a` (card backgrounds)
-- Surface elevated: `#1a1a24` (hover, elevated cards)
-- Border: `#2a2a3a`
-- Primary: `#3b82f6` (blue)
-- Success: `#22c55e` (green)
-- Warning: `#f59e0b` (amber)
-- Danger: `#ef4444` (red)
-- Info: `#8b5cf6` (purple)
-- Text primary: `#f1f5f9`
-- Text secondary: `#94a3b8`
-- Text muted: `#64748b`
+### User Flow
+1. User clicks "Login" or "Graph" → Intel Graph page slides in
+2. User drags an IP node from palette to canvas
+3. User drags a Name node, connects IP → Name
+4. Right panel shows editable fields for the selected node
+5. User fills in details, saves
+6. Adds Place, Object, How, Why, What nodes and connects them
+7. Exports the completed investigation graph as JSON
+8. The graph persists in Zustand store
 
-### Typography
-- Font: Inter or system font stack
-- Headings: bold, tight tracking
-- Body: regular weight, good line height
-- Mono: JetBrains Mono or similar for IPs, domains, technical data
+---
 
-### Design Principles
-- Glassmorphism/translucency on cards (backdrop-blur where appropriate)
-- Subtle borders instead of heavy shadows
-- Smooth transitions (150-200ms ease-in-out)
-- Consistent 4px spacing grid
-- Rounded corners (8px cards, 6px buttons, 4px inputs)
-- Loading skeletons for data-fetching states
-- Toast notifications for actions (success/error)
+## DUMMY DATA (v0.dev — No API Required)
 
-## API Integration Pattern
+All data comes from CSV files in `public/data/`, parsed by `papaparse` on app load and stored in Zustand.
 
-All pages should use this pattern for API calls:
+### `public/data/crime_records.csv` (500+ records)
+```
+FIR_No,District,UnitName,Crime_Head,Date,Time,Latitude,Longitude,Status,Criminal_Name,Victim_Name,MO_Description
+KSP/2025/001,Bengaluru City,Halasuru Gate,Murder,2025-01-15,22:30,12.9716,77.5946,Under Investigation,Ravi Kumar,Prakash Singh,Stabbing with knife during robbery
+KSP/2025/002,Bengaluru Rural,Yelahanka,Theft,2025-01-16,14:15,13.1007,77.5963,Resolved,Venkatesh,M/S Gupta Stores,Breaking and entering at night
+...
+```
 
+### `public/data/criminals.csv` (200+ records)
+```
+Criminal_ID,Name,Alias,DOB,Gender,Address,District,Crime_Count,Risk_Score
+CR-001,Ravi Kumar,Ravi,1990-05-12,Male,123 MG Road,Bengaluru City,5,85
+CR-002,Venkatesh,Venky,1985-11-03,Male,456 Whitefield,Bengaluru Rural,3,62
+...
+```
+
+### `public/data/cyber_incidents.csv` (200+ records)
+```
+Case_No,Incident_Type,Date,Source_IP,Target_Domain,Victim,Status,Geo_City,Geo_Country
+CYB/2025/001,Phishing,2025-02-01,192.168.1.100,bank-secure-login.com,Anil Kumar,Open,Bengaluru,India
+CYB/2025/002,Hacking,2025-02-03,10.0.0.50,corpdata.in,PQRS Corp,Investigating,Mumbai,India
+...
+```
+
+### `public/data/districts.csv` (40 districts)
+```
+District_Name,Crime_Rate,Literacy_Rate,Poverty_Index,Population_Density,Police_Stations
+Bengaluru City,1250.5,91.2,8.3,12000,85
+Mysuru,780.3,82.5,12.1,4500,42
+...
+```
+
+### Data Loading Pattern
 ```typescript
-// /src/api/client.ts — base API client with JWT token
-const API_BASE = process.env.VITE_API_URL || 'http://localhost:8000';
+// hooks/useCSVData.ts
+import Papa from 'papaparse';
+import { useCrimeStore } from '@/stores/crimeStore';
 
-// /src/hooks/useCrimes.ts — example hook
-export function useCrimes(filters?: CrimeFilters) {
-  return useQuery({
-    queryKey: ['crimes', filters],
-    queryFn: () => fetch(`${API_BASE}/crime/list?${toQueryString(filters)}`).then(r => r.json()),
-  });
+export function useLoadCSVData() {
+  useEffect(() => {
+    const crimes = Papa.parse('/data/crime_records.csv', { header: true }).data;
+    const criminals = Papa.parse('/data/criminals.csv', { header: true }).data;
+    const cyber = Papa.parse('/data/cyber_incidents.csv', { header: true }).data;
+    const districts = Papa.parse('/data/districts.csv', { header: true }).data;
+    
+    useCrimeStore.setState({ crimes, criminals, cyber, districts, loaded: true });
+  }, []);
 }
 ```
 
-All data fetching via `@tanstack/react-query`. All mutations via `useMutation`.
+---
 
-## State Management (Zustand)
+## ZUSTAND STORES
 
 ```typescript
-// Auth store
+// stores/authStore.ts
 interface AuthState {
-  user: User | null;
-  token: string | null;
-  login: (email: string, password: string) => Promise<void>;
+  isAuthenticated: boolean;
+  user: { name: string; role: 'Admin' | 'Sudo' | 'User' } | null;
+  login: (email: string, password: string) => void;
   logout: () => void;
 }
 
-// UI store  
-interface UIState {
-  sidebarOpen: boolean;
-  theme: 'dark' | 'light';
-  toggleSidebar: () => void;
-  toggleTheme: () => void;
+// stores/navStore.ts  
+interface NavState {
+  activeSection: 'dashboard' | 'maps' | 'network' | 'intelligence' | 'admin' | null;
+  showRadialNav: boolean;
+  setActiveSection: (section: string) => void;
+}
+
+// stores/crimeStore.ts
+interface CrimeState {
+  crimes: CrimeRecord[];
+  criminals: CriminalRecord[];
+  cyber: CyberRecord[];
+  districts: DistrictRecord[];
+  loaded: boolean;
+}
+
+// stores/graphStore.ts
+interface GraphState {
+  nodes: Node[];
+  edges: Edge[];
+  selectedNode: string | null;
+  addNode: (type: string, position: XYPosition) => void;
+  removeNode: (id: string) => void;
+  updateNodeData: (id: string, data: any) => void;
+  onConnect: (connection: Connection) => void;
+  exportGraph: () => string;
+  clearGraph: () => void;
+  loadTemplate: () => void;
 }
 ```
 
-## Deliverables
+---
 
-Generate a complete working React + TypeScript + Vite + Tailwind frontend with:
-1. All 9 pages fully implemented
-2. All shared components (charts, maps, graphs, tables, forms)
-3. API integration layer ready to connect to FastAPI backend
-4. Full auth flow with JWT token management
-5. Dark theme throughout
-6. Responsive design (desktop + tablet + mobile)
-7. Loading states, error states, empty states everywhere
-8. TypeScript strict mode — no `any` types
+## ANIMATION SPEC (Anime.js)
+
+All animations use `anime.js` library loaded via npm:
+
+### Page Transitions
+```javascript
+// Leaving current section
+anime({
+  targets: '.page-content',
+  opacity: [1, 0],
+  translateY: [0, -40],
+  duration: 400,
+  easing: 'easeOutExpo'
+});
+
+// Entering new section  
+anime({
+  targets: '.page-content',
+  opacity: [0, 1],
+  translateY: [40, 0],
+  duration: 500,
+  easing: 'easeOutExpo'
+});
+```
+
+### Radial Nav Entrance
+```javascript
+anime({
+  targets: '.radial-ring',
+  scale: [0, 1],
+  opacity: [0, 1],
+  delay: anime.stagger(120), // each ring appears sequentially
+  duration: 600,
+  easing: 'easeOutExpo'
+});
+```
+
+### Section Nav Underline
+```javascript
+// On nav item click:
+anime({
+  targets: '.nav-underline',
+  translateX: targetPosition, // calculated from active item's offsetLeft
+  duration: 400,
+  easing: 'easeInOutSine'
+});
+```
+
+### KPI Count-Up
+```javascript
+anime({
+  targets: '.kpi-number',
+  innerHTML: [0, finalValue],
+  round: 1,
+  duration: 2000,
+  easing: 'easeOutCubic'
+});
+```
+
+---
+
+## COLOR PALETTE (Dark Theme)
+
+| Token | Hex | Usage |
+|---|---|---|
+| Background | `#0a0e1a` | Page body |
+| Surface | `#111827` | Cards, panels |
+| Elevated | `#1a1a24` | Hover states, elevated cards |
+| Border | `#2a2a3a` | Borders, dividers |
+| Gold | `#f0b000` | Primary accent, active states, radial Gold segment |
+| Teal | `#20a080` | Maps accent, radial Teal segment |
+| Purple | `#800060` | Network accent, radial Purple segment |
+| Red | `#c02040` | Alerts, radial Red segment |
+| Text Primary | `#f1f5f9` | Main text |
+| Text Secondary | `#94a3b8` | Secondary text |
+| Text Muted | `#64748b` | Muted text, placeholders |
+
+---
+
+## VISUAL DESIGN PRINCIPLES
+
+1. **Dark theme throughout** — no light mode
+2. **Glassmorphism** on cards: `background: rgba(17, 24, 39, 0.8)`, `backdrop-filter: blur(12px)`
+3. **Subtle gold accents** on active/hover states (borders, underlines, highlights)
+4. **4px spacing grid** — consistent margins/padding
+5. **8px border-radius** on cards, **6px** on buttons, **4px** on inputs
+6. **Inter font** for UI, **JetBrains Mono** for technical data (IPs, domain, code)
+7. **Loading skeletons** for data-dependent content (shimmer animation)
+8. **Smooth 150-200ms transitions** on all interactive elements
+9. **Sonner toasts** for actions (success green, error red)
+
+## DELIVERABLES
+
+Generate a fully functional React 19 + TypeScript + Vite + Tailwind v4 single-page application with:
+
+1. KSP Branding Bar (logo + CM + Dy CM)
+2. Section Nav with anime.js animated underline
+3. 4-Ring Radial Navigation SVG (Gold/Teal/Purple/Red segments, anime.js entrance + click transitions)
+4. Dashboard, Maps, Network, Intelligence, Admin pages with full-page anime.js transitions
+5. Flowsint-style Intel Graph page with React Flow — 7 node types, drag-drop, connect, edit, export
+6. Dummy SCRB CSV data in `public/data/` parsed by papaparse
+7. All maps (Leaflet), graphs (Cytoscape), charts (Recharts) functional with CSV data
+8. Zustand stores for all state
+9. Dark theme with specified color palette
+10. No external API dependencies — fully self-contained with CSV data
